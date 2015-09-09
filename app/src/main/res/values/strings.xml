@@ -5,4 +5,8 @@
     <string name="action_settings">Settings</string>
     <string name="signin">Signin</string>
     <string name="register">Register</string>
+    <string name="regiser_Name">Login</string>
+    <string name="regiser_Password">Password</string>
+    <string name="regiser_Confirm_Password">Confirm Password</string>
+    <string name="regiser_e_mail">E-mail</string>
 </resources>
