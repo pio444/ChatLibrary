@@ -1,13 +1,27 @@
-package com.example.pio.chatlibrary.login;
+package com.example.pio.chatlibrary;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.pio.chatlibrary.R;
+import com.example.pio.chatlibrary.login.LoginActivity;
+import com.example.pio.chatlibrary.login.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
+
+    public void signin(View view) {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void register(View view) {
+        Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
