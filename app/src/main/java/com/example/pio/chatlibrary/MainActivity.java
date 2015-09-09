@@ -1,4 +1,4 @@
-package login;
+package com.example.pio.chatlibrary.login;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
