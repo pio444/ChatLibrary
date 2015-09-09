@@ -22,6 +22,11 @@
         <activity android:name=".login.RegisterActivity"
             android:label="@string/register">
         </activity>
+        <activity android:name=".TabBarActivity"
+            android:label="Chat rooms"
+            android:logo="@android:color/transparent"
+            android:icon="@drawable/abc_btn_check_material"
+            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"/>
     </application>
 
 </manifest>
