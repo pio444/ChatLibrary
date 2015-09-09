@@ -1,9 +1,11 @@
-package com.example.pio.chatlibrary;
+package login;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.pio.chatlibrary.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,12 +13,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        //dupa
 
-        //dupa2
-
-        //dupa3
     }
 
     @Override
