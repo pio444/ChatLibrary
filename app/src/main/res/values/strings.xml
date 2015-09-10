@@ -9,4 +9,17 @@
     <string name="regiser_Password">Password</string>
     <string name="regiser_Confirm_Password">Confirm Password</string>
     <string name="regiser_e_mail">E-mail</string>
+    <string name="regiser_First_Name">First Name</string>
+    <string name="regiser_Last_Name">Last Name</string>
+    <string name="regiser_Sex">Sex</string>
+    <string name="regiser_Pesel">Pesel</string>
+    <string name="regiser_City">City</string>
+    <string name="regiser_Postal_City">Postal City</string>
+    <string name="regiser_Street">Street</string>
+    <string name="regiser_Home_Number">Home Number</string>
+    <string name="regiser_Type">Type Addres</string>
+    <string name="sex_female">Female</string>
+    <string name="sex_male">Male</string>
+    <string name="sex_living">Living</string>
+    <string name="sex_correspondance">Correspondance</string>
 </resources>
