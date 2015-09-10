@@ -22,4 +22,5 @@
     <string name="sex_male">Male</string>
     <string name="sex_living">Living</string>
     <string name="sex_correspondance">Correspondance</string>
+    <string name="btn_send">Send!</string>
 </resources>

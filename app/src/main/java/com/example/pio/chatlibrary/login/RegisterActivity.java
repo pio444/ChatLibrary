@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.pio.chatlibrary.R;
+import com.example.pio.chatlibrary.network.RetrofitHandler;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,6 +21,9 @@ import java.util.regex.Pattern;
 public class RegisterActivity extends AppCompatActivity {
 
     public static final String TAG = RegisterActivity.class.getSimpleName();
+
+
+
 
     private EditText login;
     private EditText password;
@@ -110,6 +114,9 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        RetrofitHandler retrofitHandler = new RetrofitHandler();
+
 
         female = (RadioButton) findViewById(R.id.register_female);
         male = (RadioButton) findViewById(R.id.register_male);
