@@ -10,6 +10,7 @@ import android.view.View;
 import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.login.LoginActivity;
 import com.example.pio.chatlibrary.login.RegisterActivity;
+import com.example.pio.chatlibrary.network.RetrofitHandler;
 
 public class MainActivity extends AppCompatActivity {
 

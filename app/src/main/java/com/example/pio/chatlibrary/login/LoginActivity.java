@@ -34,16 +34,21 @@ public class LoginActivity extends AppCompatActivity {
 
     public void singIn(View view) {
 
-        if (loginEditText.getText().length()==0 || passwordEditText.getText().length()==0){
-            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
 
+        if (!Validation.validationName(loginEditText.getText().toString())) {
+            Toast.makeText(getApplicationContext(), "Invalid Login", Toast.LENGTH_SHORT).show();
+        }
+        else if (!Validation.validationPassword(passwordEditText.getText().toString(), passwordEditText.getText().toString())) {
+            Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
         }
 //        else if( /* jakies warunek*/ ){
 //             obsługa złych danych do logowania, komunikat (podales zly login/haslo)
 //        }
 //        else
 //             przejdz do ekranu czata
-        Intent i = new Intent(this, TabBarActivity.class);
-        startActivity(i);
+        else {
+            Intent i = new Intent(this, TabBarActivity.class);
+            startActivity(i);
+        }
     }
 }

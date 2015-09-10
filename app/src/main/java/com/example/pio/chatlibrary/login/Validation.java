@@ -51,7 +51,7 @@ public class Validation {
     }
 
     public static boolean validationPassword(String password, String confirmPassword) {
-        if (/*password.equals(confirmPassword) && */validationStringPassword(password)) {
+        if (password.equals(confirmPassword) && validationStringPassword(password)) {
             return true;
         }
         return false;
