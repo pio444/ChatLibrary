@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         } else if (!Validation.validationPassword(passwordEditText.getText().toString(), passwordEditText.getText().toString())) {
             Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
         } else {
-            RetrofitHandler retrofitHandler = new RetrofitHandler();
+            RetrofitHandler retrofitHandler = new RetrofitHandler(getApplicationContext(), getResources().getString(R.string.signin));
             retrofitHandler.getLoginRegisterAPI().loginToChat(loginEditText.getText().toString(),
                     passwordEditText.getText().toString(), new Callback<String>() {
                         @Override

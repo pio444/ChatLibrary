@@ -3,6 +3,8 @@ package com.example.pio.chatlibrary.network;
 
 import retrofit.Callback;
 import retrofit.http.Body;
+import retrofit.http.DELETE;
+import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Query;
 
@@ -18,5 +20,8 @@ public interface LoginRegisterAPI {
 
     @POST("/sign_in")
     void loginToChat(@Query("user") String userName, @Query("password")String userPassword , Callback<String> callback);
+
+    @DELETE("/sign_out")
+    void sign_out(@Header("Authorization") String authorization, Callback<String> callback);
 
 }

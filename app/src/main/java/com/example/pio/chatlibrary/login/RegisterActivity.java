@@ -16,6 +16,7 @@ import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.network.ModelRegister;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -121,44 +122,61 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
 
             ModelRegister model = new ModelRegister();
             model.setUser(registerName);
+            Log.d(TAG + "/dane", "user: " + registerName);
             model.setPassword(registerPassword);
+            Log.d(TAG + "/dane", "Password: " + registerPassword);
             model.setPasswordConfirmation(registerConfirmPassword);
+            Log.d(TAG + "/dane", "ConfirmPassword: " + registerConfirmPassword);
 
             /***Emails attributes***/
             List<ModelRegister.EmailsAttribute> emailsAttributes = new ArrayList<ModelRegister.EmailsAttribute>();
             ModelRegister.EmailsAttribute email_sAttributes = new ModelRegister.EmailsAttribute();
             email_sAttributes.setAddress(registerE_mail);
+            Log.d(TAG + "/dane", "E_mail: " + registerE_mail);
             emailsAttributes.add(email_sAttributes);
             model.setEmailsAttributes(emailsAttributes);
 
             /***Person attributes***/
             ModelRegister.PersonAttributes personAttributes = new ModelRegister.PersonAttributes();
             personAttributes.setPESEL(registerPesel);
+            Log.d(TAG + "/dane", "Pesel: " + registerPesel);
             personAttributes.setDateOfBirth("13-12-1999");
+            Log.d(TAG + "/dane", "DateOfBirth: " + "13-12-1999");
             personAttributes.setFirstName(registerFirstName);
+            Log.d(TAG + "/dane", "FirstName: " + registerFirstName);
             personAttributes.setLastName(registerLastName);
+            Log.d(TAG + "/dane", "LastName: " + registerLastName);
             personAttributes.setSex(registerSex);
+            Log.d(TAG + "/dane", "Sex: " + registerSex);
 
             /***Person attr***/
             List<ModelRegister.AddressesAttribute> addressesAttributes = new ArrayList<ModelRegister.AddressesAttribute>();
             ModelRegister.AddressesAttribute addresses_Attributes = new ModelRegister.AddressesAttribute();
             addresses_Attributes.setCity(registerCity);
+            Log.d(TAG + "/dane", "City: " + registerCity);
             addresses_Attributes.setStreet(registerStreet);
+            Log.d(TAG + "/dane", "Street: " + registerStreet);
             addresses_Attributes.setHomeNumber(registerHomeNumber);
+            Log.d(TAG + "/dane", "HomeNumber: " + registerHomeNumber);
             addresses_Attributes.setPostalCode(registerPostalCode);
+            Log.d(TAG + "/dane", "PostalCode: " + registerPostalCode);
             addresses_Attributes.setPostalCity(registerPostalCity);
+            Log.d(TAG + "/dane", "PostalCity: " + registerPostalCity);
             addresses_Attributes.setAddressType(registerType);
+            Log.d(TAG + "/dane", "PostalType: " + registerType);
             addressesAttributes.add(addresses_Attributes);
             personAttributes.setAddressesAttributes(addressesAttributes);
             model.setPersonAttributes(personAttributes);
 
-            RetrofitHandler retrofit = new RetrofitHandler();
+            RetrofitHandler retrofit = new RetrofitHandler(getApplicationContext(), getResources().getString(R.string.register));
             retrofit.getLoginRegisterAPI().sign_up(model, new Callback<ModelRegister>() {
                 @Override
                 public void success(ModelRegister modelRegister, Response response) {
                     Log.d(TAG + "/retrofit", response.getUrl());
                     Log.d(TAG + "/retrofit", String.valueOf(response.getStatus()));
                     Log.d(TAG + "/retrofit", String.valueOf(response.getStatus()));
+                    Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(intent);
                 }
 
                 @Override
