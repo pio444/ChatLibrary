@@ -111,10 +111,10 @@
                 android:maxLength="60"/>
 
             <EditText
-                android:id="@+id/regiser_Postal_City"
+                android:id="@+id/regiser_Postal_Code"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/regiser_Postal_City"
+                android:hint="@string/regiser_Postal_Code"
                 android:digits="0123456789-"
                 android:singleLine="true"
                 android:maxLength="6"/>
@@ -125,6 +125,14 @@
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Street"
                 android:singleLine="true"/>
+
+            <EditText
+                android:id="@+id/regiser_Postal_City"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/regiser_Postal_City"
+                android:singleLine="true"
+                android:maxLength="60"/>
 
             <EditText
                 android:id="@+id/regiser_Home_Number"

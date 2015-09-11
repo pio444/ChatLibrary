@@ -14,7 +14,7 @@
     <string name="regiser_Sex">Sex</string>
     <string name="regiser_Pesel">Pesel</string>
     <string name="regiser_City">City</string>
-    <string name="regiser_Postal_City">Postal City</string>
+    <string name="regiser_Postal_Code">Postal Code</string>
     <string name="regiser_Street">Street</string>
     <string name="regiser_Home_Number">Home Number</string>
     <string name="regiser_Type">Type Addres</string>
@@ -22,4 +22,6 @@
     <string name="sex_male">Male</string>
     <string name="sex_living">Living</string>
     <string name="sex_correspondance">Correspondance</string>
+    <string name="regiser_Postal_City">Postal City</string>
+    <string name="failed_to_connect">Failed to connect with server</string>
 </resources>

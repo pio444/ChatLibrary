@@ -1,6 +1,8 @@
 package com.example.pio.chatlibrary.network;
 
 
+import android.os.Handler;
+
 import com.google.gson.GsonBuilder;
 
 import retrofit.RestAdapter;

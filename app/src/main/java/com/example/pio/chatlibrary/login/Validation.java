@@ -17,8 +17,9 @@ public class Validation {
     public static final String regexFirstName = "[a-zA-Z]+";
     public static final String regexLastName = "[a-zA-Z]+";
     public static final String regexCity = "([a-zA-Z]+([ \\t\\n\\x0B\\f\\r])?)+";
-    public static final String regexPostalCity = "[0-9]{2}-[0-9]{3}";
+    public static final String regexPostalCode = "[0-9]{2}-[0-9]{3}";
     public static final String regexStreet = "([a-zA-Z0-9]([ \\t\\n\\x0B\\f\\r])?)+";
+    public static final String regexPostalCity = "([a-zA-Z]+([ \\t\\n\\x0B\\f\\r])?)+";
     public static final String[] exclusionName = {"admin", "superuser", "administrator"};
 
     public static boolean validationName(String name) {
@@ -115,10 +116,10 @@ public class Validation {
         return false;
     }
 
-    public static boolean validationPostalCity(String postalCity) {
-        if (postalCity.length() == 6) {
-            Pattern pattern = Pattern.compile(regexPostalCity);
-            Matcher matcher = pattern.matcher(postalCity);
+    public static boolean validationPostalCode(String postalCode) {
+        if (postalCode.length() == 6) {
+            Pattern pattern = Pattern.compile(regexPostalCode);
+            Matcher matcher = pattern.matcher(postalCode);
             boolean match = matcher.matches();
             return match;
         }
@@ -130,6 +131,16 @@ public class Validation {
         Matcher matcher = pattern.matcher(street);
         boolean match = matcher.matches();
         return match;
+    }
+
+    public static boolean validationPostalCity(String postalCity) {
+        if (postalCity.length() >= 3 && postalCity.length() <= 60) {
+            Pattern pattern = Pattern.compile(regexPostalCity);
+            Matcher matcher = pattern.matcher(postalCity);
+            boolean match = matcher.matches();
+            return match;
+        }
+        return false;
     }
 
     public static boolean validationHomeNumber(String homeNumber) {
