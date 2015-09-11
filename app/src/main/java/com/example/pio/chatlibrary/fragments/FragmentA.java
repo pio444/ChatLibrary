@@ -30,25 +30,10 @@ public class FragmentA extends Fragment {
 
         listMessages = new ArrayList<>();
 
-
         for (int i=0; i <500;i++){
             listMessages.add(new Message("Ja", "jakas wiadomosc1",true));
             listMessages.add(new Message("Tom", "jakas wiadomosc2",false));
         }
-        listMessages.add(new Message("Ja", "jakas wiadomosc1",true));
-        listMessages.add(new Message("Tom", "jakas wiadomosc2",false));
-        listMessages.add(new Message("Ja", "jakas wiadomosc1",true));
-        listMessages.add(new Message("Tom", "jakas wiadomosc2",false));
-        listMessages.add(new Message("Ja", "jakas wiadomosc1",true));
-        listMessages.add(new Message("Tom", "jakas wiadomosc2",false));
-        listMessages.add(new Message("Ja", "jakas wiadomosc1",true));
-        listMessages.add(new Message("Tom", "jakas wiadomosc2",false));
-        listMessages.add(new Message("Tom", "jakas wiadomosc2",false));
-        listMessages.add(new Message("Ja", "jakas wiadomosc1",true));
-        listMessages.add(new Message("Ja", "jakas wiadomosc1",true));
-        listMessages.add(new Message("Tom", "jakas wiadomosc2",false));
-        listMessages.add(new Message("Ja", "jakas wiadomosc333333333333333333333333333333333333333333333333333333333333333333333333333333333331",true));
-
     }
 
     @Override

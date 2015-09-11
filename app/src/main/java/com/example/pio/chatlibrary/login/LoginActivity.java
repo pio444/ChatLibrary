@@ -29,9 +29,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginEditText = (EditText) findViewById(R.id.editTextUserName);
-        loginEditText.setText("jajajajajajaj");
         passwordEditText = (EditText)findViewById(R.id.editTextUserPassword);
-        passwordEditText.setText("D2/shshhwhwhww");
+
     }
 
 
@@ -52,7 +51,8 @@ public class LoginActivity extends AppCompatActivity {
                     passwordEditText.getText().toString(), new Callback<String>() {
                         @Override
                         public void success(String s, Response response) {
-
+                                response.getBody();
+                                s.length();
 
 
                         }
