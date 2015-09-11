@@ -215,18 +215,18 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
         living = (RadioButton) findViewById(R.id.register_living);
         correspondance.setChecked(true);
 
-        login = (EditText) findViewById(R.id.regiser_Name);
-        password = (EditText) findViewById(R.id.regiser_Password);
-        confirmPassword = (EditText) findViewById(R.id.regiser_Confirm_Password);
-        e_mail = (EditText) findViewById(R.id.regiser_e_mail);
-        first_name = (EditText) findViewById(R.id.regiser_FirstName);
-        last_name = (EditText) findViewById(R.id.regiser_LastName);
-        pesel = (EditText) findViewById(R.id.regiser_Pesel);
-        city = (EditText) findViewById(R.id.regiser_City);
-        postal_code = (EditText) findViewById(R.id.regiser_Postal_Code);
-        street = (EditText) findViewById(R.id.regiser_Street);
-        postal_city = (EditText) findViewById(R.id.regiser_Postal_City);
-        home_number = (EditText) findViewById(R.id.regiser_Home_Number);
+        login = (EditText) findViewById(R.id.register_Name);
+        password = (EditText) findViewById(R.id.register_Password);
+        confirmPassword = (EditText) findViewById(R.id.register_Confirm_Password);
+        e_mail = (EditText) findViewById(R.id.register_e_mail);
+        first_name = (EditText) findViewById(R.id.register_FirstName);
+        last_name = (EditText) findViewById(R.id.register_LastName);
+        pesel = (EditText) findViewById(R.id.register_Pesel);
+        city = (EditText) findViewById(R.id.register_City);
+        postal_code = (EditText) findViewById(R.id.register_Postal_Code);
+        street = (EditText) findViewById(R.id.register_Street);
+        postal_city = (EditText) findViewById(R.id.register_Postal_City);
+        home_number = (EditText) findViewById(R.id.register_Home_Number);
 
     }
 

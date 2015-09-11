@@ -19,7 +19,7 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/regiser_Name"
+                android:id="@+id/register_Name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Name"
@@ -27,7 +27,7 @@
                 android:maxLength="32"/>
 
             <EditText
-                android:id="@+id/regiser_Password"
+                android:id="@+id/register_Password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
@@ -35,7 +35,7 @@
                 android:maxLength="50"/>
 
             <EditText
-                android:id="@+id/regiser_Confirm_Password"
+                android:id="@+id/register_Confirm_Password"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
@@ -43,7 +43,7 @@
                 android:maxLength="50"/>
 
             <EditText
-                android:id="@+id/regiser_e_mail"
+                android:id="@+id/register_e_mail"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_e_mail"
@@ -51,7 +51,7 @@
                 android:maxLength="40"/>
 
             <EditText
-                android:id="@+id/regiser_FirstName"
+                android:id="@+id/register_FirstName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_First_Name"
@@ -59,7 +59,7 @@
                 android:maxLength="30"/>
 
             <EditText
-                android:id="@+id/regiser_LastName"
+                android:id="@+id/register_LastName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Last_Name"
@@ -94,7 +94,7 @@
             </RadioGroup>
 
             <EditText
-                android:id="@+id/regiser_Pesel"
+                android:id="@+id/register_Pesel"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Pesel"
@@ -103,7 +103,7 @@
                 android:maxLength="11"/>
 
             <EditText
-                android:id="@+id/regiser_City"
+                android:id="@+id/register_City"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_City"
@@ -111,7 +111,7 @@
                 android:maxLength="60"/>
 
             <EditText
-                android:id="@+id/regiser_Postal_Code"
+                android:id="@+id/register_Postal_Code"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Postal_Code"
@@ -120,14 +120,14 @@
                 android:maxLength="6"/>
 
             <EditText
-                android:id="@+id/regiser_Street"
+                android:id="@+id/register_Street"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Street"
                 android:singleLine="true"/>
 
             <EditText
-                android:id="@+id/regiser_Postal_City"
+                android:id="@+id/register_Postal_City"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Postal_City"
@@ -135,7 +135,7 @@
                 android:maxLength="60"/>
 
             <EditText
-                android:id="@+id/regiser_Home_Number"
+                android:id="@+id/register_Home_Number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Home_Number"
