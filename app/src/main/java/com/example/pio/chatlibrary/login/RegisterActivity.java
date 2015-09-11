@@ -1,5 +1,6 @@
 package com.example.pio.chatlibrary.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -169,6 +170,9 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
                         bundle.putString("message", getResources().getString(R.string.failed_to_connect));
                         message.setData(bundle);
                         mHandler.sendMessage(message);
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                        finish();
                     }
                     else {
                         String json = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
@@ -185,9 +189,7 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
 
                 }
             });
-            /*Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(intent);
-            finish();*/
+
         }
 
     }
