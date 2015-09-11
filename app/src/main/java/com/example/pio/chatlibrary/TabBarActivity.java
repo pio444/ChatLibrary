@@ -3,6 +3,7 @@ package com.example.pio.chatlibrary;
 import android.app.ActionBar;
 
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -21,11 +22,14 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
     private ActionBar actionBar;
     private ViewPager viewPager;
+    private static String TOKEN;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        Intent intent = getIntent();
+        TOKEN = intent.getStringExtra("TOKEN");
         setContentView(R.layout.activity_tabviews);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
