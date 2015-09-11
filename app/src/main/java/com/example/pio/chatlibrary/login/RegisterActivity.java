@@ -43,7 +43,6 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
     private EditText postal_code;
     private EditText street;
     private EditText postal_city;
-    private EditText street;
     private EditText home_number;
     private EditText type;
     private RadioButton female;
@@ -67,7 +66,6 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
         String registerPostalCode = postal_code.getText().toString();
         String registerStreet = street.getText().toString();
         String registerPostalCity = postal_city.getText().toString();
-        String registerStreet = street.getText().toString();
         String registerHomeNumber = home_number.getText().toString();
 
         String registerSex;
@@ -141,16 +139,16 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
             personAttributes.setLastName(registerLastName);
             personAttributes.setSex(registerSex);
 
-                /***Person attr***/
-                List<ModelRegister.AddressesAttribute> addressesAttributes = new ArrayList<ModelRegister.AddressesAttribute>();
-                ModelRegister.AddressesAttribute addresses_Attributes = new ModelRegister.AddressesAttribute();
-                addresses_Attributes.setCity(registerCity);
-                addresses_Attributes.setStreet(registerStreet);
-                addresses_Attributes.setHomeNumber(registerHomeNumber);
-                addresses_Attributes.setPostalCode(registerPostalCode);
-                addresses_Attributes.setPostalCity(registerPostalCity);
-                addresses_Attributes.setAddressType(registerType);
-                addressesAttributes.add(addresses_Attributes);
+            /***Person attr***/
+            List<ModelRegister.AddressesAttribute> addressesAttributes = new ArrayList<ModelRegister.AddressesAttribute>();
+            ModelRegister.AddressesAttribute addresses_Attributes = new ModelRegister.AddressesAttribute();
+            addresses_Attributes.setCity(registerCity);
+            addresses_Attributes.setStreet(registerStreet);
+            addresses_Attributes.setHomeNumber(registerHomeNumber);
+            addresses_Attributes.setPostalCode(registerPostalCode);
+            addresses_Attributes.setPostalCity(registerPostalCity);
+            addresses_Attributes.setAddressType(registerType);
+            addressesAttributes.add(addresses_Attributes);
             personAttributes.setAddressesAttributes(addressesAttributes);
             model.setPersonAttributes(personAttributes);
 
@@ -232,4 +230,25 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
 
     }
 
+    @Override
+    public boolean handleMessage(Message msg) {
+
+        switch (msg.what) {
+            case BACKGROUND_OPERATION:
+                Bundle bundle = msg.getData();
+                howToast(bundle.getString("message"));
+        }
+
+        return true;
+
+    }
+
+    private void howToast(final String message) {
+        uiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
