@@ -11,6 +11,9 @@ import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.TabBarActivity;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,14 +37,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginEditText = (EditText) findViewById(R.id.editTextUserName);
+        loginEditText.setText("xxx104");
         passwordEditText = (EditText) findViewById(R.id.editTextUserPassword);
+        passwordEditText.setText("Zaq!12wsx");
 
     }
-
-
     public void singIn(View view) {
-
-
 
         if (!Validation.validationName(loginEditText.getText().toString())) {
             Toast.makeText(getApplicationContext(), "Invalid Login", Toast.LENGTH_SHORT).show();
@@ -54,17 +55,24 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void success(String s, Response response) {
 
-                            String token = s.substring(24,153);
-                            Intent intent = new Intent(LoginActivity.this, TabBarActivity.class);
-                            intent.putExtra("TOKEN", token);
-                            startActivity(intent);
+                            if (s.contains("false")) {
+                                Toast.makeText(getApplicationContext(), "You typed bad username or password", Toast.LENGTH_SHORT).show();
+                            } else {
+                                try {
+                                    JSONObject jsonObject = new JSONObject(s);
+                                    String token = jsonObject.getString("token");
+                                    Intent intent = new Intent(LoginActivity.this, TabBarActivity.class);
+                                    intent.putExtra("TOKEN", token);
+                                    startActivity(intent);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
 
-
+                            }
                         }
 
                         @Override
                         public void failure(RetrofitError error) {
-
                         }
                     });
 
