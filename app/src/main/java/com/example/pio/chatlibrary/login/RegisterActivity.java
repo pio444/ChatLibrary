@@ -177,6 +177,7 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
                     Log.d(TAG + "/retrofit", String.valueOf(response.getStatus()));
                     Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                     startActivity(intent);
+                    finish();
                 }
 
                 @Override
