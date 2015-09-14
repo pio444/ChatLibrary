@@ -13,7 +13,8 @@ import retrofit.http.Query;
  */
 public interface LoginRegisterAPI {
 
-    static final String BASE_URL = "http://172.16.20.179:3000/api/v1/accounts";
+    //static final String BASE_URL = "http://172.16.20.179:3000/api/v1/accounts";
+    static final String BASE_URL = "http://172.16.20.137:3000/api/v1/accounts";
 
     @POST("/sign_up")
     void sign_up(@Body ModelRegister modelRegister, Callback<ModelRegister> callback);

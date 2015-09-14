@@ -5,6 +5,10 @@ import android.app.ActionBar;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -17,7 +21,10 @@ import android.view.MenuItem;
 import com.example.pio.chatlibrary.fragments.FragmentA;
 import com.example.pio.chatlibrary.fragments.FragmentB;
 import com.example.pio.chatlibrary.fragments.FragmentC;
+import com.example.pio.chatlibrary.network.FayeClient;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
+
+import org.json.JSONException;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -26,13 +33,23 @@ import retrofit.client.Response;
 /**
  * Created by pio on 09.09.15.
  */
-public class TabBarActivity extends FragmentActivity implements ActionBar.TabListener {
+public class TabBarActivity extends FragmentActivity implements ActionBar.TabListener,
+                                                        Handler.Callback,
+                                                        FragmentA.SendMessage {
 
     public static final String TAG = TabBarActivity.class.getSimpleName();
 
     private ActionBar actionBar;
     private ViewPager viewPager;
     private static String TOKEN;
+    private FayeClient fayeClient;
+    private FayeClient fayeClient2;
+    private static String LOGIN;
+    public static final int BACKGROUND_OPERATION = 10;
+    private FragmentA fragmentA;
+    private FragmentB fragmentB;
+    private FragmentC fragmentC;
+    private Handler mUiHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +60,27 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         Log.d(TAG, TOKEN);
         TOKEN = TOKEN.replaceAll("\"", "");
         Log.d(TAG, TOKEN);
+        LOGIN = intent.getStringExtra("LOGIN");
         setContentView(R.layout.activity_tabviews);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
         viewPager.setOnPageChangeListener(new MyPageChangeListener());
         setUpTabs();
+
+        HandlerThread handlerThread = new HandlerThread("BackgroundThread");
+        handlerThread.start();
+        Handler mHandler = new Handler(handlerThread.getLooper(), this);
+        mUiHandler = new Handler(getMainLooper(), this);
+        fayeClient = new FayeClient("/all", mHandler);
+        fayeClient.start();
+        fayeClient2 = new FayeClient("/users", mHandler);
+        fayeClient2.start();
+        //mUiHandler = new Handler(getMainLooper(), this);
+
+        fragmentA = new FragmentA();
+        fragmentB = new FragmentB();
+        fragmentC = new FragmentC();
+
     }
 
     @Override
@@ -84,6 +117,41 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         actionBar.addTab(tabThree);
     }
 
+    @Override
+    public boolean handleMessage(Message msg) {
+
+        switch (msg.what) {
+            case BACKGROUND_OPERATION: {
+                Bundle bundle = msg.getData();
+                newMessage(bundle.getString("login"), bundle.getString("message"));
+            }
+        }
+
+        return true;
+    }
+
+    private void newMessage(final String login, final String message) {
+        Log.d("login", login);
+        Log.d("message", message);
+        mUiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                if (login.equals(LOGIN)) {
+                    fragmentA.addMessage("Ja", message, true);
+                }
+                else {
+                    fragmentA.addMessage(login, message, false);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void send(String message) throws JSONException {
+        fayeClient.send(LOGIN, message);
+    }
+
     private class MyAdapter extends FragmentPagerAdapter {
 
 
@@ -94,16 +162,15 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         @Override
         public Fragment getItem(int i) {
-            Fragment fragment = null;
 
             if (i == 0) {
-                fragment = new FragmentA();
+                return fragmentA;
             } else if (i == 1)
-                fragment = new FragmentB();
-            else if (i == 2)
-                fragment = new FragmentC();
+                return fragmentB;
+            else
+                return fragmentC;
 
-            return fragment;
+
         }
 
         @Override

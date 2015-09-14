@@ -3,6 +3,7 @@ package com.example.pio.chatlibrary.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,9 +38,9 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginEditText = (EditText) findViewById(R.id.editTextUserName);
-        loginEditText.setText("xxx104");
+        loginEditText.setText("kupakupakupa");
         passwordEditText = (EditText) findViewById(R.id.editTextUserPassword);
-        passwordEditText.setText("Zaq!12wsx");
+        passwordEditText.setText("Kupakupakupa1@");
 
     }
     public void singIn(View view) {
@@ -54,7 +55,7 @@ public class LoginActivity extends AppCompatActivity {
                     passwordEditText.getText().toString(), new Callback<String>() {
                         @Override
                         public void success(String s, Response response) {
-
+                            Log.d("ret", s);
                             if (s.contains("false")) {
                                 Toast.makeText(getApplicationContext(), "You typed bad username or password", Toast.LENGTH_SHORT).show();
                             } else {
@@ -63,6 +64,7 @@ public class LoginActivity extends AppCompatActivity {
                                     String token = jsonObject.getString("token");
                                     Intent intent = new Intent(LoginActivity.this, TabBarActivity.class);
                                     intent.putExtra("TOKEN", token);
+                                    intent.putExtra("LOGIN", loginEditText.getText().toString());
                                     startActivity(intent);
                                 } catch (JSONException e) {
                                     e.printStackTrace();
