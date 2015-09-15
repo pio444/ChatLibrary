@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.pio.chatlibrary.MyApplication;
 import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.chat.User;
 import com.example.pio.chatlibrary.network.ActivityListener;
@@ -27,25 +28,19 @@ import java.util.List;
 public class FragmentC extends Fragment {
 
 
-    private List<User> usersList;
-    private HashMap<String, User> privateUsersMap;
     private MyAdapter myAdapter;
     private ListView usersListView;
+    private List<User> usersList;
     private CheckBox checkBox;
+    private MyApplication myApplication;
     private ActivityListener activityListener;
 
     public FragmentC() {
 
-        usersList = new ArrayList<>();
-        privateUsersMap = new HashMap<>();
-        usersList.add(new User("tomek", true));
-        usersList.add(new User("romek", true));
-        usersList.add(new User("anna", true));
-        usersList.add(new User("wacław", true));
+
 
 
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,22 +52,26 @@ public class FragmentC extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_c, container, false);
+
+        usersList.add(new User("malkom",true));
+        usersList.add(new User("klapek",true));
+        usersList.add(new User("motowidły",true));
+
         usersListView = (ListView) view.findViewById(R.id.list_view_users);
         usersListView.setAdapter(myAdapter);
 
         return view;
     }
 
-    public void updateLoggedList(String[] userNames) {
-        for (String userName : userNames) {
-            usersList.add(new User(userName, true));
-        }
-    }
+
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        activityListener  = (ActivityListener)activity;
+        activityListener = (ActivityListener) activity;
+        myApplication = (MyApplication) getActivity().getApplication();
+        usersList = myApplication.getUsersList();
+
     }
 
     class MyAdapter extends BaseAdapter {
@@ -102,17 +101,20 @@ public class FragmentC extends Fragment {
             View view = getActivity().getLayoutInflater().inflate(R.layout.single_user, parent, false);
             checkBox = (CheckBox) view.findViewById(R.id.check_box_users);
             checkBox.setTag(position);
+
+            if (usersList.get(position).isUserOnPrivateChat())
+                checkBox.setChecked(true);
             checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int position = (Integer) buttonView.getTag();
-                    if (!isChecked)
-                        privateUsersMap.remove(usersList.get(position).getUserName());
-                    else
-                        privateUsersMap.put(usersList.get(position).getUserName(), usersList.get(position));
-
-                    activityListener.getPrivateUserMap(privateUsersMap);
-
+                    if (!isChecked){
+                        usersList.get(position).setOnPrivateChat(false);
+                    }
+                    else{
+                        usersList.get(position).setOnPrivateChat(true);
+                    }
+                    activityListener.notifyPrivateList();
                 }
             });
             TextView userName = (TextView) view.findViewById(R.id.text_view_user);

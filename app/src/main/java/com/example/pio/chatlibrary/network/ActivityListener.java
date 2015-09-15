@@ -10,7 +10,6 @@ import java.util.List;
  */
 public interface ActivityListener {
 
-    void getUserMessage(String message);
-    void getPrivateUserMap(HashMap<String, User> privateUserList);
+    void notifyPrivateList();
 
 }

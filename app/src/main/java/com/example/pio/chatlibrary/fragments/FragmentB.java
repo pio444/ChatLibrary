@@ -1,7 +1,6 @@
 package com.example.pio.chatlibrary.fragments;
 
 import android.app.Activity;
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,17 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
+import com.example.pio.chatlibrary.MyApplication;
 import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.chat.Message;
 import com.example.pio.chatlibrary.chat.MessagesListAdapter;
 import com.example.pio.chatlibrary.chat.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -28,16 +26,19 @@ import java.util.List;
 public class FragmentB extends Fragment {
 
 
-    private List<String> personList;
+    private List<String> privatePersonList;
+    private List<User>  usersList;
     private ListView listView;
     private Spinner spinner;
     private MessagesListAdapter messagesListAdapter;
     private List<Message> listMessages;
+    private MyApplication myApplication;
+    private ArrayAdapter<String> adapter;
 
 
     public FragmentB(){
 
-        personList = new ArrayList<>();
+        privatePersonList = new ArrayList<>();
 
     }
 
@@ -58,23 +59,42 @@ public class FragmentB extends Fragment {
         messagesListAdapter = new MessagesListAdapter(getActivity(),listMessages);
         listView.setAdapter(messagesListAdapter);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
-                R.layout.spinner_layout,personList);
+        adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                R.layout.spinner_layout, privatePersonList);
         spinner.setAdapter(adapter);
         return view;
     }
-    public void updatePrivateList(HashMap<String,User> privateUsersMap){
-        personList.clear();
+    public void updatePrivateList(){
 
-        for (String name : privateUsersMap.keySet()){
-                personList.add(name);
-            }
+        privatePersonList.clear();
+
+        for (int i = 0 ; i < usersList.size(); i++){
+            if(usersList.get(i).isUserOnPrivateChat())
+                privatePersonList.add(usersList.get(i).getUserName());
+        }
+        adapter.notifyDataSetChanged();
 
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        myApplication = (MyApplication)getActivity().getApplication();
+        usersList = myApplication.getUsersList();
+
+
+    }
+
+    private int getIndex(Spinner spinner, String myString){
+
+        int index = 0;
+
+        for (int i=0;i<spinner.getCount();i++){
+            if (spinner.getItemAtPosition(i).equals(myString)){
+                index = i;
+            }
+        }
+        return index;
     }
 
 }

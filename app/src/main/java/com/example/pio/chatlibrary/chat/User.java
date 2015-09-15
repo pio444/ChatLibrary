@@ -7,6 +7,7 @@ public class User {
 
     private String userName;
     private boolean isLogged;
+    private boolean isOnPrivateChat;
 
     public User(String userName, boolean isLogged) {
         this.userName = userName;
@@ -14,9 +15,14 @@ public class User {
     }
 
     public void setLogged(boolean logOrNot) {
-        this.isLogged = logOrNot;
+        isLogged = logOrNot;
     }
-
+    public void setOnPrivateChat(boolean onPrivateChat){
+        isOnPrivateChat = onPrivateChat;
+    }
+    public boolean isUserOnPrivateChat(){
+        return isOnPrivateChat;
+    }
     public boolean isUserLogged() {
         return isLogged;
     }

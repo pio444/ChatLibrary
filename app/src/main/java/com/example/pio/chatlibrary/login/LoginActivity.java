@@ -46,34 +46,40 @@ public class LoginActivity extends AppCompatActivity {
 
     public void singIn(View view) {
 
-        if (!Validation.validationName(loginEditText.getText().toString())) {
-            Toast.makeText(getApplicationContext(), "Invalid login", Toast.LENGTH_SHORT).show();
-        } else if (!Validation.validationPassword(passwordEditText.getText().toString(), passwordEditText.getText().toString())) {
-            Toast.makeText(getApplicationContext(), "Invalid password", Toast.LENGTH_SHORT).show();
-        } else {
-            RetrofitHandler retrofitHandler = new RetrofitHandler(getApplicationContext(), getResources().getString(R.string.signin));
-            retrofitHandler.getLoginRegisterAPI().loginToChat(loginEditText.getText().toString(),
-                    passwordEditText.getText().toString(), new Callback<String>() {
-                        @Override
-                        public void success(String s, Response response) {
-                            try {
-                                JSONObject jsonObject = new JSONObject(s);
-                                String token = jsonObject.getString("token");
-                                Intent intent = new Intent(LoginActivity.this, TabBarActivity.class);
-                                intent.putExtra("TOKEN", token);
-                                intent.putExtra("LOGIN", loginEditText.getText().toString());
-                                startActivity(intent);
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        @Override
-                        public void failure(RetrofitError error) {
-                            Toast.makeText(getApplicationContext(), "Something goes wrong, check your connection or typed username and password", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+        Intent intent = new Intent(LoginActivity.this, TabBarActivity.class);
+    //    intent.putExtra("TOKEN", token);
+        intent.putExtra("LOGIN", loginEditText.getText().toString());
+        intent.putExtra("LOGIN", loginEditText.getText().toString());
+        startActivity(intent);
 
-        }
+//        if (!Validation.validationName(loginEditText.getText().toString())) {
+//            Toast.makeText(getApplicationContext(), "Invalid login", Toast.LENGTH_SHORT).show();
+//        } else if (!Validation.validationPassword(passwordEditText.getText().toString(), passwordEditText.getText().toString())) {
+//            Toast.makeText(getApplicationContext(), "Invalid password", Toast.LENGTH_SHORT).show();
+//        } else {
+//            RetrofitHandler retrofitHandler = new RetrofitHandler(getApplicationContext(), getResources().getString(R.string.signin));
+//            retrofitHandler.getLoginRegisterAPI().loginToChat(loginEditText.getText().toString(),
+//                    passwordEditText.getText().toString(), new Callback<String>() {
+//                        @Override
+//                        public void success(String s, Response response) {
+//                            try {
+//                                JSONObject jsonObject = new JSONObject(s);
+//                                String token = jsonObject.getString("token");
+//                                Intent intent = new Intent(LoginActivity.this, TabBarActivity.class);
+//                                intent.putExtra("TOKEN", token);
+//                                intent.putExtra("LOGIN", loginEditText.getText().toString());
+//                                startActivity(intent);
+//                            } catch (JSONException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                        @Override
+//                        public void failure(RetrofitError error) {
+//                            Toast.makeText(getApplicationContext(), "Something goes wrong, check your connection or typed username and password", Toast.LENGTH_SHORT).show();
+//                        }
+//                    });
+//
+//        }
     }
 
 

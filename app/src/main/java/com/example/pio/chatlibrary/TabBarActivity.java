@@ -17,6 +17,7 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 
 import com.example.pio.chatlibrary.chat.User;
 import com.example.pio.chatlibrary.fragments.FragmentA;
@@ -61,10 +62,10 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        TOKEN = intent.getStringExtra("TOKEN");
-        Log.d(TAG, TOKEN);
-        TOKEN = TOKEN.replaceAll("\"", "");
-        Log.d(TAG, TOKEN);
+ //       TOKEN = intent.getStringExtra("TOKEN");
+//        Log.d(TAG, TOKEN);
+  //      TOKEN = TOKEN.replaceAll("\"", "");
+   //     Log.d(TAG, TOKEN);
         LOGIN = intent.getStringExtra("LOGIN");
         setContentView(R.layout.activity_tabviews);
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -143,8 +144,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
             public void run() {
                 if (login.equals(LOGIN)) {
                     fragmentA.addMessage("Ja", message, true);
-                }
-                else {
+                } else {
                     fragmentA.addMessage(login, message, false);
                 }
             }
@@ -158,15 +158,12 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         fragmentA.addMessage("Ja", message, true);
     }
 
-    @Override
-    public void getUserMessage(String message) {
-
-    }
 
     @Override
-    public void getPrivateUserMap(HashMap<String, User> privateUserList) {
-        fragmentB.updatePrivateList(privateUserList);
+    public void notifyPrivateList() {
+        fragmentB.updatePrivateList();
     }
+
 
     private class MyAdapter extends FragmentPagerAdapter {
 
@@ -178,7 +175,6 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         @Override
         public Fragment getItem(int i) {
-            Fragment fragment = null;
 
             if (i == 0) {
                 return fragmentA;
@@ -186,8 +182,6 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
                 return fragmentB;
             else
                 return fragmentC;
-
-
         }
 
         @Override
@@ -208,7 +202,8 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         }
         @Override
         public void onPageScrollStateChanged(int i) {
-
+            ((InputMethodManager)getSystemService(INPUT_METHOD_SERVICE))
+                    .hideSoftInputFromWindow(viewPager.getWindowToken(), 0);
         }
     }
 
@@ -249,5 +244,6 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         return super.onOptionsItemSelected(item);
     }
+
 
 }
