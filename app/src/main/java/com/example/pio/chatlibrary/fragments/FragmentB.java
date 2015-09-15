@@ -39,7 +39,6 @@ public class FragmentB extends Fragment {
 
         personList = new ArrayList<>();
 
-
     }
 
     @Override
@@ -55,11 +54,6 @@ public class FragmentB extends Fragment {
 
         listView = (ListView)view.findViewById(R.id.list_view_messages_fragmentB);
         spinner = (Spinner)view.findViewById(R.id.person_spinner);
-
-        /*for (int i=0; i <500;i++){
-            listMessages.add(new Message("Ja", "jakas wiadomosc1",true));
-            listMessages.add(new Message("Tom", "jakas wiadomosc2",false));
-        }*/
 
         messagesListAdapter = new MessagesListAdapter(getActivity(),listMessages);
         listView.setAdapter(messagesListAdapter);
