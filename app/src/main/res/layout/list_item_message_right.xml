@@ -17,17 +17,33 @@
         android:textSize="12dp"
         android:textStyle="italic" />
 
-    <TextView
-        android:id="@+id/txtMsg"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="80dp"
-        android:background="@drawable/bg_msg_you"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:textColor="@color/white"
-        android:textSize="16dp" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/wrong"
+            android:layout_weight="1"
+            android:id="@+id/wrong"/>
+
+        <TextView
+            android:id="@+id/txtMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_msg_you"
+            android:layout_marginLeft="80dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:textColor="@color/white"
+            android:textSize="16dp"
+            android:layout_weight="3"
+            android:layout_gravity="center|right"
+            android:gravity="right"/>
+
+    </FrameLayout>
 
 </LinearLayout>

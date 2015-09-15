@@ -27,6 +27,7 @@ import retrofit.client.Response;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String TAG = LoginActivity.class.getSimpleName();
 
     private EditText loginEditText;
     private EditText passwordEditText;
