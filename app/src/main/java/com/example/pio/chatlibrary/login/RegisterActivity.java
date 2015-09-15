@@ -86,7 +86,7 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
         }
 
         if (!Validation.validationName(registerName)) {
-            Toast.makeText(getApplicationContext(), "Invalid Login", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Invalid login", Toast.LENGTH_SHORT).show();
         }
         else if (!Validation.validationPassword(registerPassword, registerConfirmPassword)) {
             Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();

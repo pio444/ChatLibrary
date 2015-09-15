@@ -14,10 +14,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.pio.chatlibrary.chat.User;
 import com.example.pio.chatlibrary.fragments.FragmentA;
 import com.example.pio.chatlibrary.fragments.FragmentB;
 import com.example.pio.chatlibrary.fragments.FragmentC;
+import com.example.pio.chatlibrary.network.ActivityListener;
+import com.example.pio.chatlibrary.network.FayeHandler;
+import com.example.pio.chatlibrary.network.ListenerFaye;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
+import com.example.pio.chatlibrary.util.Sender;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -26,13 +37,18 @@ import retrofit.client.Response;
 /**
  * Created by pio on 09.09.15.
  */
-public class TabBarActivity extends FragmentActivity implements ActionBar.TabListener {
+public class TabBarActivity extends FragmentActivity implements ActionBar.TabListener, ListenerFaye, ActivityListener {
 
     public static final String TAG = TabBarActivity.class.getSimpleName();
 
     private ActionBar actionBar;
     private ViewPager viewPager;
     private static String TOKEN;
+    private FayeHandler fayeHandler;
+    private String userName;
+    private FragmentA fragmentA;
+    private FragmentB fragmentB;
+    private FragmentC fragmentC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +56,13 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         Intent intent = getIntent();
         TOKEN = intent.getStringExtra("TOKEN");
-        Log.d(TAG, TOKEN);
-        TOKEN = TOKEN.replaceAll("\"", "");
+        userName = intent.getStringExtra("LOGIN");
         Log.d(TAG, TOKEN);
         setContentView(R.layout.activity_tabviews);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
         viewPager.setOnPageChangeListener(new MyPageChangeListener());
+        fayeHandler = new FayeHandler(this);
         setUpTabs();
     }
 
@@ -84,8 +100,38 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         actionBar.addTab(tabThree);
     }
 
-    private class MyAdapter extends FragmentPagerAdapter {
+    @Override
+    public void getDataFromChannel(JSONObject jsonObject, String messageType) {
 
+        switch (messageType) {
+            case "ALL":
+                try {
+                    if (!jsonObject.getString("author").equals(userName)) {
+                        fragmentA.updateMessagesList(jsonObject.getString("author"),
+                                jsonObject.getString("message"), false);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            case "USERS":
+                //fragmentC.updateLoggedList(/* */);
+                break;
+        }
+    }
+
+    @Override
+    public void getUserMessage(String message) {
+        Sender.sendMessage(userName, message, fayeHandler);
+    }
+
+    @Override
+    public void getPrivateUserMap(HashMap<String, User> privateUserList) {
+        fragmentB.updatePrivateList(privateUserList);
+    }
+
+
+    private class MyAdapter extends FragmentPagerAdapter {
 
         public MyAdapter(FragmentManager fragmentManager) {
             super(fragmentManager);
@@ -94,16 +140,20 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         @Override
         public Fragment getItem(int i) {
-            Fragment fragment = null;
+
 
             if (i == 0) {
-                fragment = new FragmentA();
-            } else if (i == 1)
-                fragment = new FragmentB();
-            else if (i == 2)
-                fragment = new FragmentC();
+                fragmentA = new FragmentA();
+                return fragmentA;
+            } else if (i == 1) {
+                fragmentB = new FragmentB();
+                return fragmentB;
+            } else if (i == 2) {
+                fragmentC = new FragmentC();
+                return fragmentC;
+            }
 
-            return fragment;
+            return null;
         }
 
         @Override
@@ -111,17 +161,20 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
             return 3;
         }
     }
+
     private class MyPageChangeListener implements ViewPager.OnPageChangeListener {
 
         @Override
         public void onPageScrolled(int i, float v, int i1) {
 
         }
+
         @Override
         public void onPageSelected(int i) {
 
             actionBar.setSelectedNavigationItem(i);
         }
+
         @Override
         public void onPageScrollStateChanged(int i) {
 

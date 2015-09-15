@@ -16,8 +16,10 @@ import android.widget.Spinner;
 import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.chat.Message;
 import com.example.pio.chatlibrary.chat.MessagesListAdapter;
+import com.example.pio.chatlibrary.chat.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -33,13 +35,10 @@ public class FragmentB extends Fragment {
     private List<Message> listMessages;
 
 
-
     public FragmentB(){
 
         personList = new ArrayList<>();
-        personList.add("Olek");
-        personList.add("Tomek");
-        personList.add("Kasia");
+
 
     }
 
@@ -69,6 +68,14 @@ public class FragmentB extends Fragment {
                 R.layout.spinner_layout,personList);
         spinner.setAdapter(adapter);
         return view;
+    }
+    public void updatePrivateList(HashMap<String,User> privateUsersMap){
+        personList.clear();
+
+        for (String name : privateUsersMap.keySet()){
+                personList.add(name);
+            }
+
     }
 
     @Override
