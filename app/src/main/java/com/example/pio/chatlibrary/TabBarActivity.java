@@ -150,6 +150,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     @Override
     public void send(String message) throws JSONException {
         fayeClient.send(LOGIN, message);
+        fragmentA.addMessage("Ja", message, true);
     }
 
     private class MyAdapter extends FragmentPagerAdapter {

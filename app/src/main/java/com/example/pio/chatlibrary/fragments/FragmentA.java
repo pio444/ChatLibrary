@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -35,11 +37,13 @@ public class FragmentA extends Fragment {
     private ListView listView;
     private Button button;
     private EditText editText;
+    private List<String> myMessage;
 
 
     public FragmentA(){
 
         listMessages = new ArrayList<>();
+        myMessage = new ArrayList<>();
 
     }
 
@@ -61,6 +65,7 @@ public class FragmentA extends Fragment {
                 if (!editText.getText().toString().equals("")) {
                     try {
                         mCallback.send(editText.getText().toString());
+                        editText.setText("");
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -68,7 +73,30 @@ public class FragmentA extends Fragment {
             }
         });
 
+
         listView = (ListView)view.findViewById(R.id.list_view_messages);
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("long", "click");
+                if (listMessages.get(position).isWrong()) {
+                    CopyDialog dialog = new CopyDialog();
+                    Bundle args = new Bundle();
+                    args.putString("message", listMessages.get(position).getMessage());
+                    dialog.setArguments(args);
+                    dialog.show(getFragmentManager(), "dialog");
+                }
+                else {
+                    WrongDialog dialog = new WrongDialog();
+                    Bundle args = new Bundle();
+                    args.putString("message", listMessages.get(position).getMessage());
+                    dialog.setArguments(args);
+                    dialog.show(getFragmentManager(), "dialog");
+                }
+                return false;
+            }
+        });
 
         listView.setAdapter(messagesListAdapter);
 
@@ -90,7 +118,24 @@ public class FragmentA extends Fragment {
     }
 
     public void addMessage(String login, String message, boolean ja) {
-        listMessages.add(new Message(login, message, ja));
+        if (ja) {
+            if (!myMessage.contains(message)) {
+                myMessage.add(message);
+                listMessages.add(new Message(login, message, ja, false));
+            }
+            else {
+                myMessage.remove(message);
+                for (int i = listMessages.size()-1; i >= 0; i++) {
+                    if (listMessages.get(i).getFromName().equals("Ja") && listMessages.get(i).getMessage().equals(message)) {
+                        listMessages.get(i).setWrong(true);
+                        break;
+                    }
+                }
+            }
+        }
+        else {
+            listMessages.add(new Message(login, message, ja, true));
+        }
         listView.invalidateViews();
     }
 }

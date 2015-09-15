@@ -3,7 +3,6 @@ package com.example.pio.chatlibrary.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -28,6 +27,7 @@ import retrofit.client.Response;
  */
 public class LoginActivity extends AppCompatActivity {
 
+    public static final String TAG = LoginActivity.class.getSimpleName();
 
     private EditText loginEditText;
     private EditText passwordEditText;
@@ -38,43 +38,38 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         loginEditText = (EditText) findViewById(R.id.editTextUserName);
-        loginEditText.setText("kupakupakupa");
+        loginEditText.setText("normalny");
         passwordEditText = (EditText) findViewById(R.id.editTextUserPassword);
-        passwordEditText.setText("Kupakupakupa1@");
+        passwordEditText.setText("Dupek123!");
 
     }
+
     public void singIn(View view) {
 
         if (!Validation.validationName(loginEditText.getText().toString())) {
-            Toast.makeText(getApplicationContext(), "Invalid Login", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Invalid login", Toast.LENGTH_SHORT).show();
         } else if (!Validation.validationPassword(passwordEditText.getText().toString(), passwordEditText.getText().toString())) {
-            Toast.makeText(getApplicationContext(), "Invalid Password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Invalid password", Toast.LENGTH_SHORT).show();
         } else {
             RetrofitHandler retrofitHandler = new RetrofitHandler(getApplicationContext(), getResources().getString(R.string.signin));
             retrofitHandler.getLoginRegisterAPI().loginToChat(loginEditText.getText().toString(),
                     passwordEditText.getText().toString(), new Callback<String>() {
                         @Override
                         public void success(String s, Response response) {
-                            Log.d("ret", s);
-                            if (s.contains("false")) {
-                                Toast.makeText(getApplicationContext(), "You typed bad username or password", Toast.LENGTH_SHORT).show();
-                            } else {
-                                try {
-                                    JSONObject jsonObject = new JSONObject(s);
-                                    String token = jsonObject.getString("token");
-                                    Intent intent = new Intent(LoginActivity.this, TabBarActivity.class);
-                                    intent.putExtra("TOKEN", token);
-                                    intent.putExtra("LOGIN", loginEditText.getText().toString());
-                                    startActivity(intent);
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                }
-
+                            try {
+                                JSONObject jsonObject = new JSONObject(s);
+                                String token = jsonObject.getString("token");
+                                Intent intent = new Intent(LoginActivity.this, TabBarActivity.class);
+                                intent.putExtra("TOKEN", token);
+                                intent.putExtra("LOGIN", loginEditText.getText().toString());
+                                startActivity(intent);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
                         }
-
                         @Override
                         public void failure(RetrofitError error) {
+                            Toast.makeText(getApplicationContext(), "Something goes wrong, check your connection or typed username and password", Toast.LENGTH_SHORT).show();
                         }
                     });
 

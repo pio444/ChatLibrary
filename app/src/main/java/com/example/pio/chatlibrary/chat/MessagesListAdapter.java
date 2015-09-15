@@ -9,10 +9,12 @@ import java.util.List;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.pio.chatlibrary.R;
@@ -61,6 +63,14 @@ public class MessagesListAdapter extends BaseAdapter {
             // message belongs to you, so load the right aligned layout
             convertView = mInflater.inflate(R.layout.list_item_message_right,
                     null);
+            if (messagesItems.get(position).isWrong()) {
+                ImageView imageView = (ImageView) convertView.findViewById(R.id.wrong);
+                imageView.setVisibility(View.INVISIBLE);
+            }
+            else {
+                ImageView imageView = (ImageView) convertView.findViewById(R.id.wrong);
+                imageView.setVisibility(View.VISIBLE);
+            }
         } else {
             // message belongs to other person, load the left aligned layout
             convertView = mInflater.inflate(R.layout.list_item_message_left,
