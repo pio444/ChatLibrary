@@ -1,9 +1,12 @@
 package com.example.pio.chatlibrary.chat;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by pio on 10.09.15.
  */
-public class Message {
+public class Message implements Parcelable {
 
     private String fromName, message;
     private boolean isSelf;
@@ -53,5 +56,25 @@ public class Message {
 
     public void setWrong(boolean wrong) {
         this.wrong = wrong;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(fromName);
+        dest.writeString(message);
+        dest.writeByte((byte) (isSelf ? 1 : 0));
+        dest.writeByte((byte) (wrong ? 1 : 0));
+    }
+
+    private Message(Parcel in) {
+        fromName = in.readString();
+        message = in.readString();
+        isSelf = in.readByte() != 0;
+        wrong = in.readByte() != 0;
     }
 }

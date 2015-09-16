@@ -23,6 +23,7 @@ import com.example.pio.chatlibrary.chat.User;
 import com.example.pio.chatlibrary.fragments.FragmentA;
 import com.example.pio.chatlibrary.fragments.FragmentB;
 import com.example.pio.chatlibrary.fragments.FragmentC;
+import com.example.pio.chatlibrary.fragments.WrongDialog;
 import com.example.pio.chatlibrary.network.ActivityListener;
 import com.example.pio.chatlibrary.network.FayeClient;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
@@ -41,7 +42,8 @@ import retrofit.client.Response;
 public class TabBarActivity extends FragmentActivity implements ActionBar.TabListener,
                                                         Handler.Callback,
                                                         FragmentA.SendMessage,
-                                                        ActivityListener {
+                                                        ActivityListener,
+                                                        WrongDialog.SendAgain {
 
     public static final String TAG = TabBarActivity.class.getSimpleName();
 
@@ -81,7 +83,6 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         fayeClient.start();
         fayeClient2 = new FayeClient("/users", mHandler);
         fayeClient2.start();
-        //mUiHandler = new Handler(getMainLooper(), this);
 
         fragmentA = new FragmentA();
         fragmentB = new FragmentB();
@@ -162,6 +163,13 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     @Override
     public void notifyPrivateList() {
         fragmentB.updatePrivateList();
+    }
+
+    @Override
+    public void sendAgain(int position, String message) throws JSONException {
+        fayeClient.send(LOGIN, message);
+        fragmentA.removeMessageFromList(position, message, LOGIN);
+
     }
 
 

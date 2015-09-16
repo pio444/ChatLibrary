@@ -2,6 +2,7 @@ package com.example.pio.chatlibrary.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -86,11 +87,11 @@ public class FragmentA extends Fragment {
                     args.putString("message", listMessages.get(position).getMessage());
                     dialog.setArguments(args);
                     dialog.show(getFragmentManager(), "dialog");
-                }
-                else {
+                } else {
                     WrongDialog dialog = new WrongDialog();
                     Bundle args = new Bundle();
                     args.putString("message", listMessages.get(position).getMessage());
+                    args.putInt("position", position);
                     dialog.setArguments(args);
                     dialog.show(getFragmentManager(), "dialog");
                 }
@@ -98,6 +99,10 @@ public class FragmentA extends Fragment {
             }
         });
 
+        if (savedInstanceState != null) {
+            listMessages = (List) savedInstanceState.getParcelableArrayList("listMessage");
+            messagesListAdapter = new MessagesListAdapter(getActivity().getApplicationContext(), listMessages);
+        }
         listView.setAdapter(messagesListAdapter);
 
         return view;
@@ -137,5 +142,19 @@ public class FragmentA extends Fragment {
             listMessages.add(new Message(login, message, ja, true));
         }
         listView.invalidateViews();
+    }
+
+    public void removeMessageFromList(int position, String message, String login) {
+        listMessages.remove(position);
+        listMessages.add(new Message(login, message, true, false));
+        listView.invalidateViews();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putParcelableArrayList("listMessage", (ArrayList<? extends Parcelable>) listMessages);
+
     }
 }
