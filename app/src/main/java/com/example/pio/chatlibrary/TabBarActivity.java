@@ -24,6 +24,7 @@ import com.example.pio.chatlibrary.fragments.FragmentA;
 import com.example.pio.chatlibrary.fragments.FragmentB;
 import com.example.pio.chatlibrary.fragments.FragmentC;
 import com.example.pio.chatlibrary.fragments.WrongDialog;
+import com.example.pio.chatlibrary.login.LoginActivity;
 import com.example.pio.chatlibrary.network.ActivityListener;
 import com.example.pio.chatlibrary.network.FayeClient;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
@@ -251,6 +252,13 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        Intent i = new Intent(this, LoginActivity.class);
+        startActivity(i);
     }
 
 

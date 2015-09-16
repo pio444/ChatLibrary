@@ -47,7 +47,7 @@ public class LoginActivity extends AppCompatActivity {
     public void singIn(View view) {
 
         Intent intent = new Intent(LoginActivity.this, TabBarActivity.class);
-    //    intent.putExtra("TOKEN", token);
+        //intent.putExtra("TOKEN", token);
         intent.putExtra("LOGIN", loginEditText.getText().toString());
         intent.putExtra("LOGIN", loginEditText.getText().toString());
         startActivity(intent);
@@ -69,6 +69,8 @@ public class LoginActivity extends AppCompatActivity {
 //                                intent.putExtra("TOKEN", token);
 //                                intent.putExtra("LOGIN", loginEditText.getText().toString());
 //                                startActivity(intent);
+//                                   finish();
+
 //                            } catch (JSONException e) {
 //                                e.printStackTrace();
 //                            }
