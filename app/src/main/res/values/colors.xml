@@ -16,4 +16,6 @@
     <color name="lblFromName">#777777</color>
     <color name="blue_for_button_pressed">#607D8B</color>
     <color name="blue_for_button_unpressed">#B0BEC5</color>
+    <color name="transparent">#00000000</color>
+    <color name="tab_highlight">#ff9ecfbf</color>
 </resources>

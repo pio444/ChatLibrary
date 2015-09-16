@@ -22,9 +22,9 @@
         android:layout_height="wrap_content">
 
         <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/wrong"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/warning"
             android:layout_weight="1"
             android:id="@+id/wrong"/>
 

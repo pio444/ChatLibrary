@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
-import android.os.Looper;
 import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -19,7 +18,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 
-import com.example.pio.chatlibrary.chat.User;
 import com.example.pio.chatlibrary.fragments.FragmentA;
 import com.example.pio.chatlibrary.fragments.FragmentB;
 import com.example.pio.chatlibrary.fragments.FragmentC;
@@ -30,8 +28,6 @@ import com.example.pio.chatlibrary.network.FayeClient;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
 
 import org.json.JSONException;
-
-import java.util.HashMap;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -65,10 +61,10 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
- //       TOKEN = intent.getStringExtra("TOKEN");
-//        Log.d(TAG, TOKEN);
-  //      TOKEN = TOKEN.replaceAll("\"", "");
-   //     Log.d(TAG, TOKEN);
+        TOKEN = intent.getStringExtra("TOKEN");
+        Log.d(TAG, TOKEN);
+        TOKEN = TOKEN.replaceAll("\"", "");
+        Log.d(TAG, TOKEN);
         LOGIN = intent.getStringExtra("LOGIN");
         setContentView(R.layout.activity_tabviews);
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -111,13 +107,13 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
         ActionBar.Tab tabOne = actionBar.newTab();
-        tabOne.setText("FragmentA");
+        tabOne.setCustomView(R.layout.single_tab_layout_all);
         tabOne.setTabListener(this);
         ActionBar.Tab tabTwo = actionBar.newTab();
-        tabTwo.setText("FragmentB");
+        tabTwo.setCustomView(R.layout.single_tab_layout_private);
         tabTwo.setTabListener(this);
         ActionBar.Tab tabThree = actionBar.newTab();
-        tabThree.setText("FragmentC");
+        tabThree.setCustomView(R.layout.single_tab_layout_users_list);
         tabThree.setTabListener(this);
 
         actionBar.addTab(tabOne);
@@ -232,22 +228,22 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sign_out) {
-            //String authorization = "Basic " + TOKEN;
             String authorization = "Basic " + TOKEN;
+            //String authorization = "Basic ";
             RetrofitHandler retrofit = new RetrofitHandler(getApplicationContext(), getResources().getString(R.string.register));
             retrofit.getLoginRegisterAPI().sign_out(authorization, new Callback<String>() {
                 @Override
                 public void success(String s, Response response) {
-                    Log.e(TAG, String.valueOf(response.getStatus()));
+
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.e(TAG, error.toString());
+
                 }
             });
-            //Log.e(TAG, String.valueOf(response.getStatus()));
-            //Log.e(TAG, error.toString());
+                    //Log.e(TAG, String.valueOf(response.getStatus()));
+                    //Log.e(TAG, error.toString());
             return true;
         }
 

@@ -30,7 +30,7 @@
             android:windowSoftInputMode="stateHidden"
             android:logo="@android:color/transparent"
             android:icon="@drawable/abc_btn_check_material"
-            android:theme="@android:style/Theme.Holo.Light.DarkActionBar"
+            android:theme="@style/ChatApp"
             android:configChanges="orientation|screenSize"/>
     </application>
 

@@ -130,7 +130,7 @@ public class FragmentA extends Fragment {
             }
             else {
                 myMessage.remove(message);
-                for (int i = listMessages.size()-1; i >= 0; i++) {
+                for (int i = listMessages.size()-1; i >= 0; i--) {
                     if (listMessages.get(i).getFromName().equals("Ja") && listMessages.get(i).getMessage().equals(message)) {
                         listMessages.get(i).setWrong(true);
                         break;
@@ -153,7 +153,6 @@ public class FragmentA extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putParcelableArrayList("listMessage", (ArrayList<? extends Parcelable>) listMessages);
 
     }
