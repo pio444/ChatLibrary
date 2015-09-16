@@ -255,6 +255,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
+        finish();
     }
 
 
