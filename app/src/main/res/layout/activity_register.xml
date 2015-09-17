@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/btn_clicked"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -24,7 +25,10 @@
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Name"
                 android:singleLine="true"
-                android:maxLength="32"/>
+                android:maxLength="32"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/register_Password"
@@ -32,7 +36,10 @@
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
                 android:hint="@string/regiser_Password"
-                android:maxLength="50"/>
+                android:maxLength="50"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/register_Confirm_Password"
@@ -40,7 +47,10 @@
                 android:layout_height="match_parent"
                 android:inputType="textPassword"
                 android:hint="@string/regiser_Confirm_Password"
-                android:maxLength="50"/>
+                android:maxLength="50"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/register_e_mail"
@@ -48,7 +58,10 @@
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_e_mail"
                 android:singleLine="true"
-                android:maxLength="40"/>
+                android:maxLength="40"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/register_FirstName"
@@ -56,7 +69,10 @@
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_First_Name"
                 android:singleLine="true"
-                android:maxLength="30"/>
+                android:maxLength="30"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/register_LastName"
@@ -64,14 +80,19 @@
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Last_Name"
                 android:singleLine="true"
-                android:maxLength="30"/>
+                android:maxLength="30"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
+
 
             <TextView
                 android:id="@+id/regiser_Sex"
+                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Sex"
-                android:singleLine="true"/>
+                android:singleLine="true" />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -83,13 +104,16 @@
                     android:id="@+id/register_female"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sex_female"/>
+                    android:text="@string/sex_female"
+                    android:textColor="@color/white"/>
 
                 <RadioButton
                     android:id="@+id/register_male"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sex_male"/>
+                    android:text="@string/sex_male"
+                    android:textColor="@color/white"
+                    />
 
             </RadioGroup>
 
@@ -100,7 +124,12 @@
                 android:hint="@string/regiser_Pesel"
                 android:inputType="number"
                 android:singleLine="true"
-                android:maxLength="11"/>
+                android:maxLength="11"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
+
+
 
             <EditText
                 android:id="@+id/register_City"
@@ -108,7 +137,10 @@
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_City"
                 android:singleLine="true"
-                android:maxLength="60"/>
+                android:maxLength="60"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/register_Postal_Code"
@@ -117,14 +149,20 @@
                 android:hint="@string/regiser_Postal_Code"
                 android:digits="0123456789-"
                 android:singleLine="true"
-                android:maxLength="6"/>
+                android:maxLength="6"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/register_Street"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Street"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/register_Postal_City"
@@ -132,7 +170,10 @@
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Postal_City"
                 android:singleLine="true"
-                android:maxLength="60"/>
+                android:maxLength="60"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <EditText
                 android:id="@+id/register_Home_Number"
@@ -141,14 +182,18 @@
                 android:hint="@string/regiser_Home_Number"
                 android:singleLine="true"
                 android:maxLength="8"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:background="@color/white"
+                android:padding="4dp"
+                android:layout_marginBottom="5dp"/>
 
             <TextView
                 android:id="@+id/regiser_Type"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/regiser_Type"
-                android:singleLine="true"/>
+                android:singleLine="true"
+                />
 
             <RadioGroup
                 android:layout_width="match_parent"
@@ -160,13 +205,15 @@
                     android:id="@+id/register_correspondance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sex_correspondance"/>
+                    android:text="@string/sex_correspondance"
+                    android:textColor="@color/white"/>
 
                 <RadioButton
                     android:id="@+id/register_living"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/sex_living"/>
+                    android:text="@string/sex_living"
+                    android:textColor="@color/white"/>
 
             </RadioGroup>
 

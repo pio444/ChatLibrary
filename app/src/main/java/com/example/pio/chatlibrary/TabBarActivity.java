@@ -61,10 +61,10 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-        TOKEN = intent.getStringExtra("TOKEN");
-        Log.d(TAG, TOKEN);
-        TOKEN = TOKEN.replaceAll("\"", "");
-        Log.d(TAG, TOKEN);
+//        TOKEN = intent.getStringExtra("TOKEN");
+//        Log.d(TAG, TOKEN);
+//        TOKEN = TOKEN.replaceAll("\"", "");
+//        Log.d(TAG, TOKEN);
         LOGIN = intent.getStringExtra("LOGIN");
         setContentView(R.layout.activity_tabviews);
         viewPager = (ViewPager) findViewById(R.id.pager);

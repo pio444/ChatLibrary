@@ -8,30 +8,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="50dp"
+        android:background="@color/btn_clicked"
+
         android:orientation="horizontal">
 
         <TextView
             android:id="@+id/lblMsgFrom"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginBottom="6dp"
             android:layout_weight="1"
-            android:padding="5dp"
+            android:textColor="@color/white"
+            android:gravity="center"
             android:text="@string/choose_person"
             android:textSize="20sp" />
 
         <Spinner
             android:id="@+id/person_spinner"
+            android:gravity="center"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1">
 
         </Spinner>
     </LinearLayout>
-
-
 
     <ListView
 

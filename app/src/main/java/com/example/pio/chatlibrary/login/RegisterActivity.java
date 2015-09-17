@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.pio.chatlibrary.MainActivity;
 import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.network.ModelRegister;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
@@ -269,5 +270,12 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }

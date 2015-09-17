@@ -3,12 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="30dp"
-    android:background="@drawable/bg_messages">
+    android:background="@color/btn_clicked"
+    android:gravity="center">
 
 
     <TextView
         android:textSize="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:layout_above="@+id/editTextUserName"
+        android:textColor="@color/white"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,8 +43,8 @@
         android:singleLine="true"/>
 
     <Button
+        android:id="@+id/button_login"
         android:layout_width="200dp"
-        android:background="@drawable/button_login_register_selector"
         android:layout_height="wrap_content"
         android:onClick="singIn"
         android:text="@string/start_chat"

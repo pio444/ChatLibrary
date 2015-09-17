@@ -1,5 +1,6 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relative_activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -8,7 +9,7 @@
     android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context=".MainActivity"
     android:orientation="vertical"
-    android:background="@drawable/bg_messages">
+    android:background="@color/btn_clicked">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,6 +24,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="Hello"
                 android:layout_gravity="center_horizontal"
                 android:gravity="center_horizontal"
@@ -31,6 +33,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:text="Please login or register"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="20dp"
@@ -43,9 +46,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/signin"
                 android:layout_gravity="center"
-                android:background="@drawable/button_login_register_selector"
                 android:onClick="signin"
-                android:layout_marginBottom="20dp"/>
+                android:layout_marginBottom="10dp"/>
 
             <Button
                 android:id="@+id/buttonRegister"
@@ -53,11 +55,10 @@
                 android:layout_height="wrap_content"
                 android:text="@string/register"
                 android:onClick="register"
-                android:background="@drawable/button_login_register_selector"
                 android:layout_gravity="center"/>
 
         </LinearLayout>
 
     </ScrollView>
 
-</FrameLayout>
+</RelativeLayout>
