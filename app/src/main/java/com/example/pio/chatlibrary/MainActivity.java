@@ -22,12 +22,14 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         startActivity(intent);
         finish();
+
     }
 
     public void register(View view) {
         Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intent);
         finish();
+
     }
 
     @Override
@@ -38,10 +40,7 @@ public class MainActivity extends AppCompatActivity {
         buttonRegister = (Button) findViewById(R.id.buttonRegister);
         buttonSignIn = (Button) findViewById(R.id.buttonSignin);
 
-        Animation animationLeft = AnimationUtils.loadAnimation(this, R.anim.animation_left);
-        Animation animationRight = AnimationUtils.loadAnimation(this, R.anim.animation_right);
-        buttonSignIn.setAnimation(animationLeft);
-        buttonRegister.setAnimation(animationRight);
+
     }
 
     @Override
@@ -69,6 +68,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+        Animation animationLeft = AnimationUtils.loadAnimation(this, R.anim.animation_left);
+        Animation animationRight = AnimationUtils.loadAnimation(this, R.anim.animation_right);
+        buttonSignIn.setAnimation(animationLeft);
+        buttonRegister.setAnimation(animationRight);
 
     }
 //    private void moveViewToScreenCenter( View view )

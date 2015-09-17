@@ -4,9 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.pio.chatlibrary.MainActivity;
 import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.TabBarActivity;
 import com.example.pio.chatlibrary.network.Retrofit;
@@ -32,11 +36,16 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText loginEditText;
     private EditText passwordEditText;
+    private Button buttonLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        buttonLogin = (Button)findViewById(R.id.button_login);
+        Animation animationLeft = AnimationUtils.loadAnimation(this, R.anim.animation_left);
+        buttonLogin.setAnimation(animationLeft);
 
         loginEditText = (EditText) findViewById(R.id.editTextUserName);
         loginEditText.setText("normalny");
@@ -64,6 +73,13 @@ public class LoginActivity extends AppCompatActivity {
         }
 
                           
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 
 

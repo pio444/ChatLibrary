@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.pio.chatlibrary.MainActivity;
 import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.fragments.DataOfBirthdayDialog;
 import com.example.pio.chatlibrary.network.ModelRegister;
@@ -21,8 +22,8 @@ import com.example.pio.chatlibrary.network.Retrofit;
  * Created by pio on 09.09.15.
  */
 public class RegisterActivity extends AppCompatActivity
-                            implements Handler.Callback,
-                                        DataOfBirthdayDialog.DataOfBirthday {
+        implements Handler.Callback,
+        DataOfBirthdayDialog.DataOfBirthday {
 
     public static final String TAG = RegisterActivity.class.getSimpleName();
     public static final int BACKGROUND_OPERATION = 10;
@@ -181,4 +182,19 @@ public class RegisterActivity extends AppCompatActivity
             }
         });
     }
+
+    @Override
+    public void setDataOfBirthday(int day, int month, int year) {
+        dataOfBirthday = day+"-"+(month+1)+"-"+year;
+        Log.d(TAG, dataOfBirthday);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+
 }
