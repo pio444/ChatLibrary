@@ -44,4 +44,5 @@ public class CopyDialog extends DialogFragment {
         return builder.create();
 
     }
+
 }

@@ -1,154 +1,180 @@
 package com.example.pio.chatlibrary.login;
 
 import android.util.Log;
+import android.widget.Toast;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.example.pio.chatlibrary.network.ModelRegister;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by bober on 09.09.15.
+ * Created by bober on 17.09.15.
  */
 public class Validation {
 
     public static final String TAG = Validation.class.getSimpleName();
 
-    public static final String regexName = "[a-zA-Z][a-zA-Z_0-9]+";
-    public static final String regexE_mail = "[a-zA-Z_0-9]+@[a-zA-Z_0-9]+\\.[a-zA-Z_0-9]+";
-    public static final String regexFirstName = "[a-zA-Z]+";
-    public static final String regexLastName = "[a-zA-Z]+";
-    public static final String regexCity = "([a-zA-Z]+([ \\t\\n\\x0B\\f\\r])?)+";
-    public static final String regexPostalCode = "[0-9]{2}-[0-9]{3}";
-    public static final String regexStreet = "([a-zA-Z0-9]([ \\t\\n\\x0B\\f\\r])?)+";
-    public static final String regexPostalCity = "([a-zA-Z]+([ \\t\\n\\x0B\\f\\r])?)+";
-    public static final String[] exclusionName = {"admin", "superuser", "administrator"};
+    private String registerName;
+    private String registerPassword;
+    private String registerConfirmPassword;
+    private String registerE_mail;
+    private String registerFirstName;
+    private String registerLastName;
+    private String registerPesel;
+    private String dataOfBirthday;
+    private String registerCity;
+    private String registerPostalCode;
+    private String registerStreet;
+    private String registerPostalCity;
+    private String registerHomeNumber;
+    private String registerSex;
+    private String registerType;
 
-    public static boolean validationName(String name) {
-        if (name.length() >= 6 && name.length() <= 32 && validationStringName(name)) {
-            Pattern pattern = Pattern.compile(regexName);
-            Matcher matcher = pattern.matcher(name);
-            boolean match = matcher.matches();
-            return match;
-        }
-        return false;
+    public Validation(String registerName,
+                      String registerPassword,
+                      String registerConfirmPassword,
+                      String registerE_mail,
+                      String registerFirstName,
+                      String registerLastName,
+                      String registerPesel,
+                      String dataOfBirthday,
+                      String registerCity,
+                      String registerPostalCode,
+                      String registerStreet,
+                      String registerPostalCity,
+                      String registerHomeNumber,
+                      String registerSex,
+                      String registerType) {
+
+        this.registerName = registerName;
+        this.registerPassword = registerPassword;
+        this.registerConfirmPassword = registerConfirmPassword;
+        this.registerE_mail = registerE_mail;
+        this.registerFirstName = registerFirstName;
+        this.registerLastName = registerLastName;
+        this.registerPesel = registerPesel;
+        this.dataOfBirthday = dataOfBirthday;
+        this.registerCity = registerCity;
+        this.registerPostalCode = registerPostalCode;
+        this.registerStreet = registerStreet;
+        this.registerPostalCity = registerPostalCity;
+        this.registerHomeNumber = registerHomeNumber;
+        this.registerSex = registerSex;
+        this.registerType = registerType;
+
     }
 
-    private static boolean validationStringName(String name) {
-        for (int i = 0; i < exclusionName.length; i++) {
-            if (exclusionName[i].equals(name)) {
-                return false;
-            }
-        }
-        return true;
+    public Validation(String registerName,
+                      String registerPassword) {
+
+        this.registerName = registerName;
+        this.registerPassword = registerPassword;
+
     }
 
-    public static boolean validationE_mail(String e_mail) {
-        if (e_mail.length() >= 6 && e_mail.length() <= 40) {
-            Pattern pattern = Pattern.compile(regexE_mail);
-            Matcher matcher = pattern.matcher(e_mail);
-            boolean match = matcher.matches();
-            return match;
+    public String validationRegister() {
+        Log.d(TAG, registerPesel);
+        if (!ModelValidation.validationName(registerName)) {
+            return "Invalid login";
         }
-        return false;
+        else if (!ModelValidation.validationPassword(registerPassword, registerConfirmPassword)) {
+            return "Invalid Password";
+        }
+        else if (!ModelValidation.validationE_mail(registerE_mail)) {
+            return "Invalid E-mail";
+        }
+        else if (!ModelValidation.validationFirstName(registerFirstName)) {
+            return "Invalid First Name";
+        }
+        else if (!ModelValidation.validationLastName(registerLastName)) {
+            return "Invalid Last Name";
+        }
+        else if (!ModelValidation.validationPesel(registerPesel)) {
+            return "Invalid Pesel";
+        }
+        else if (dataOfBirthday == null) {
+            return "Invalid Data Of Birthday";
+        }
+        else if (!ModelValidation.validationCity(registerCity)) {
+            return "Invalid City";
+        }
+        else if (!ModelValidation.validationPostalCode(registerPostalCode)) {
+            return "Invalid Postal Code";
+        }
+        else if (!ModelValidation.validationStreet(registerStreet)) {
+            return "Invalid Street";
+        }
+        else if (!ModelValidation.validationPostalCity(registerPostalCity)) {
+            return "Invalid Postal City";
+        }
+        else if (!ModelValidation.validationHomeNumber(registerHomeNumber)) {
+            return "Invalid Home Number";
+        }
+        return "true";
     }
 
-    public static boolean validationPassword(String password, String confirmPassword) {
-        if (password.equals(confirmPassword) && validationStringPassword(password)) {
-            return true;
+    public String validationLogin() {
+        if (!ModelValidation.validationName(registerName)) {
+            return "Invalid login";
         }
-        return false;
+        else if (!ModelValidation.validationPassword(registerPassword, registerPassword)) {
+            return "Invalid Password";
+        }
+        return "true";
     }
 
-    private static boolean validationStringPassword(String password) {
-        if (password.length() >= 8 && password.length() <= 50) {
-            boolean cyfra = password.matches(".*[0-9].*");
-            boolean duzaLitera = password.matches(".*[A-Z].*");
-            boolean malaLitera = password.matches(".*[a-z].*");
-            boolean cokolwiek = password.matches(".*[^[a-zA-Z_0-9]].*");
-            boolean bialyZnak = password.matches(".*[ \\t\\n\\x0B\\f\\r].*");
-            Log.d(TAG, password);
-            Log.d(TAG, String.valueOf(cyfra));
-            Log.d(TAG, String.valueOf(duzaLitera));
-            Log.d(TAG, String.valueOf(malaLitera));
-            Log.d(TAG, String.valueOf(cokolwiek));
-            Log.d(TAG, String.valueOf(bialyZnak));
-            if (cyfra && duzaLitera && malaLitera && cokolwiek && !bialyZnak) {
-                return true;
-            }
-            return false;
-        }
-        return false;
-    }
+    public ModelRegister creatModelRegister() {
 
-    public static boolean validationFirstName(String firstName) {
-        if (firstName.length() >= 2 && firstName.length() <= 30) {
-            Pattern pattern = Pattern.compile(regexFirstName);
-            Matcher matcher = pattern.matcher(firstName);
-            boolean match = matcher.matches();
-            return match;
-        }
-        return false;
-    }
+        ModelRegister model = new ModelRegister();
+        model.setUser(registerName);
+        Log.d(TAG + "/dane", "user: " + registerName);
+        model.setPassword(registerPassword);
+        Log.d(TAG + "/dane", "Password: " + registerPassword);
+        model.setPasswordConfirmation(registerConfirmPassword);
+        Log.d(TAG + "/dane", "ConfirmPassword: " + registerConfirmPassword);
 
-    public static boolean validationLastName(String lastName) {
-        if (lastName.length() >= 2 && lastName.length() <= 30) {
-            Pattern pattern = Pattern.compile(regexLastName);
-            Matcher matcher = pattern.matcher(lastName);
-            boolean match = matcher.matches();
-            return match;
-        }
-        return false;
-    }
+        /***Emails attributes***/
+        List<ModelRegister.EmailsAttribute> emailsAttributes = new ArrayList<ModelRegister.EmailsAttribute>();
+        ModelRegister.EmailsAttribute email_sAttributes = new ModelRegister.EmailsAttribute();
+        email_sAttributes.setAddress(registerE_mail);
+        Log.d(TAG + "/dane", "E_mail: " + registerE_mail);
+        emailsAttributes.add(email_sAttributes);
+        model.setEmailsAttributes(emailsAttributes);
 
-    public static boolean validationPesel(String pesel) {
-        if (pesel.length() == 11) {
-            return true;
-        }
-        return true;
-    }
+        /***Person attributes***/
+        ModelRegister.PersonAttributes personAttributes = new ModelRegister.PersonAttributes();
+        personAttributes.setPESEL(registerPesel);
+        Log.d(TAG + "/dane", "Pesel: " + registerPesel);
+        personAttributes.setDateOfBirth(dataOfBirthday);
+        Log.d(TAG + "/dane", "DateOfBirth: " + dataOfBirthday);
+        personAttributes.setFirstName(registerFirstName);
+        Log.d(TAG + "/dane", "FirstName: " + registerFirstName);
+        personAttributes.setLastName(registerLastName);
+        Log.d(TAG + "/dane", "LastName: " + registerLastName);
+        personAttributes.setSex(registerSex);
+        Log.d(TAG + "/dane", "Sex: " + registerSex);
 
-    public static boolean validationCity(String city) {
-        if (city.length() >= 3 && city.length() <= 60) {
-            Pattern pattern = Pattern.compile(regexCity);
-            Matcher matcher = pattern.matcher(city);
-            boolean match = matcher.matches();
-            return match;
-        }
-        return false;
-    }
+        /***Person attr***/
+        List<ModelRegister.AddressesAttribute> addressesAttributes = new ArrayList<ModelRegister.AddressesAttribute>();
+        ModelRegister.AddressesAttribute addresses_Attributes = new ModelRegister.AddressesAttribute();
+        addresses_Attributes.setCity(registerCity);
+        Log.d(TAG + "/dane", "City: " + registerCity);
+        addresses_Attributes.setStreet(registerStreet);
+        Log.d(TAG + "/dane", "Street: " + registerStreet);
+        addresses_Attributes.setHomeNumber(registerHomeNumber);
+        Log.d(TAG + "/dane", "HomeNumber: " + registerHomeNumber);
+        addresses_Attributes.setPostalCode(registerPostalCode);
+        Log.d(TAG + "/dane", "PostalCode: " + registerPostalCode);
+        addresses_Attributes.setPostalCity(registerPostalCity);
+        Log.d(TAG + "/dane", "PostalCity: " + registerPostalCity);
+        addresses_Attributes.setAddressType(registerType);
+        Log.d(TAG + "/dane", "PostalType: " + registerType);
+        addressesAttributes.add(addresses_Attributes);
+        personAttributes.setAddressesAttributes(addressesAttributes);
+        model.setPersonAttributes(personAttributes);
 
-    public static boolean validationPostalCode(String postalCode) {
-        if (postalCode.length() == 6) {
-            Pattern pattern = Pattern.compile(regexPostalCode);
-            Matcher matcher = pattern.matcher(postalCode);
-            boolean match = matcher.matches();
-            return match;
-        }
-        return false;
-    }
-
-    public static boolean validationStreet(String street) {
-        Pattern pattern = Pattern.compile(regexStreet);
-        Matcher matcher = pattern.matcher(street);
-        boolean match = matcher.matches();
-        return match;
-    }
-
-    public static boolean validationPostalCity(String postalCity) {
-        if (postalCity.length() >= 3 && postalCity.length() <= 60) {
-            Pattern pattern = Pattern.compile(regexPostalCity);
-            Matcher matcher = pattern.matcher(postalCity);
-            boolean match = matcher.matches();
-            return match;
-        }
-        return false;
-    }
-
-    public static boolean validationHomeNumber(String homeNumber) {
-        Log.d(TAG, homeNumber);
-        if (homeNumber.length() >= 1 && homeNumber.length() <= 8) {
-            return true;
-        }
-        return false;
+        return model;
     }
 
 }

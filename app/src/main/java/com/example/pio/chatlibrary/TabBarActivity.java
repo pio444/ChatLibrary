@@ -25,6 +25,7 @@ import com.example.pio.chatlibrary.fragments.WrongDialog;
 import com.example.pio.chatlibrary.login.LoginActivity;
 import com.example.pio.chatlibrary.network.ActivityListener;
 import com.example.pio.chatlibrary.network.FayeClient;
+import com.example.pio.chatlibrary.network.Retrofit;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
 
 import org.json.JSONException;
@@ -228,20 +229,10 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sign_out) {
+            Retrofit retrofit = new Retrofit(getApplicationContext(), this);
             String authorization = "Basic " + TOKEN;
+            retrofit.sign_out(authorization);
             //String authorization = "Basic ";
-            RetrofitHandler retrofit = new RetrofitHandler(getApplicationContext(), getResources().getString(R.string.register));
-            retrofit.getLoginRegisterAPI().sign_out(authorization, new Callback<String>() {
-                @Override
-                public void success(String s, Response response) {
-
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-
-                }
-            });
                     //Log.e(TAG, String.valueOf(response.getStatus()));
                     //Log.e(TAG, error.toString());
             return true;
