@@ -54,9 +54,6 @@ public class RegisterActivity extends AppCompatActivity
     private RadioButton male;
     private RadioButton correspondance;
     private RadioButton living;
-    private int day;
-    private int month;
-    private int year;
     private String dataOfBirthday;
 
     private Handler mHandler;
