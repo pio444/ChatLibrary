@@ -28,11 +28,26 @@
     <string name="start_chat">Start chat!</string>
     <string name="choose_person">Talk with: </string>
     <string name="action_sign_out">Sign out</string>
+    <string name="regiser_dataOfBirthday">Data Of Birthday</string>
     <string-array name="copyDialog">
         <item>Copy text</item>
     </string-array>
     <string-array name="wrongDialog">
         <item>Send again</item>
         <item>Copy text</item>
+    </string-array>
+    <string-array name="montsOfYear">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
     </string-array>
 </resources>

@@ -102,6 +102,13 @@
                 android:singleLine="true"
                 android:maxLength="11"/>
 
+            <Button
+                android:id="@+id/regiser_dataOfBirthday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="dataOfBirthday"
+                android:text="@string/regiser_dataOfBirthday"/>
+
             <EditText
                 android:id="@+id/register_City"
                 android:layout_width="match_parent"

@@ -8,11 +8,13 @@ import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.example.pio.chatlibrary.R;
+import com.example.pio.chatlibrary.fragments.DataOfBirthdayDialog;
 import com.example.pio.chatlibrary.network.ModelRegister;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
 
@@ -28,7 +30,9 @@ import retrofit.mime.TypedByteArray;
 /**
  * Created by pio on 09.09.15.
  */
-public class RegisterActivity extends AppCompatActivity implements Handler.Callback {
+public class RegisterActivity extends AppCompatActivity
+                            implements Handler.Callback,
+                                        DataOfBirthdayDialog.DataOfBirthday {
 
     public static final String TAG = RegisterActivity.class.getSimpleName();
     public static final int BACKGROUND_OPERATION = 10;
@@ -50,9 +54,19 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
     private RadioButton male;
     private RadioButton correspondance;
     private RadioButton living;
+    private int day;
+    private int month;
+    private int year;
+    private String dataOfBirthday;
 
     private Handler mHandler;
     private Handler uiHandler;
+
+    public void dataOfBirthday(View view) {
+        Log.d(TAG, "dataOfBirthday");
+        DataOfBirthdayDialog dialog = new DataOfBirthdayDialog();
+        dialog.show(getSupportFragmentManager(), "dialog");
+    }
 
     public void regiser(View view) {
         Log.d(TAG, "regiser");
@@ -103,6 +117,9 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
         else if (!Validation.validationPesel(registerPesel)) {
             Toast.makeText(getApplicationContext(), "Invalid Pesel", Toast.LENGTH_SHORT).show();
         }
+        else if (dataOfBirthday == null) {
+            Toast.makeText(getApplicationContext(), "Invalid Data Of Birthday", Toast.LENGTH_SHORT).show();
+        }
         else if (!Validation.validationCity(registerCity)) {
             Toast.makeText(getApplicationContext(), "Invalid City", Toast.LENGTH_SHORT).show();
         }
@@ -140,8 +157,8 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
             ModelRegister.PersonAttributes personAttributes = new ModelRegister.PersonAttributes();
             personAttributes.setPESEL(registerPesel);
             Log.d(TAG + "/dane", "Pesel: " + registerPesel);
-            personAttributes.setDateOfBirth("13-12-1999");
-            Log.d(TAG + "/dane", "DateOfBirth: " + "13-12-1999");
+            personAttributes.setDateOfBirth(dataOfBirthday);
+            Log.d(TAG + "/dane", "DateOfBirth: " + dataOfBirthday);
             personAttributes.setFirstName(registerFirstName);
             Log.d(TAG + "/dane", "FirstName: " + registerFirstName);
             personAttributes.setLastName(registerLastName);
@@ -246,6 +263,9 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
         street = (EditText) findViewById(R.id.register_Street);
         postal_city = (EditText) findViewById(R.id.register_Postal_City);
         home_number = (EditText) findViewById(R.id.register_Home_Number);
+        day = 0;
+        month = 0;
+        year = 0;
 
     }
 
@@ -269,5 +289,11 @@ public class RegisterActivity extends AppCompatActivity implements Handler.Callb
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void setDataOfBirthday(int day, int month, int year) {
+        dataOfBirthday = day+"-"+(month+1)+"-"+year;
+        Log.d(TAG, dataOfBirthday);
     }
 }
