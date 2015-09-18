@@ -65,8 +65,7 @@ public class Retrofit {
                     bundle.putString("message", applicationContext.getResources().getString(R.string.failed_to_connect));
                     message.setData(bundle);
                     mHandler.sendMessage(message);
-                }
-                else {
+                } else {
                     String json = new String(((TypedByteArray) error.getResponse().getBody()).getBytes());
                     Log.e("failure", json.toString());
                     String msg = json.toString().replaceFirst("\\{\"errors\":\\[\"", "");
@@ -117,18 +116,27 @@ public class Retrofit {
             @Override
             public void success(ModelSignOut s, Response response) {
                 Log.d(TAG, s.getStatus());
+                Intent i = new Intent(applicationContext, LoginActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                applicationContext.startActivity(i);
+                activity.finish();
+
             }
 
             @Override
             public void failure(RetrofitError error) {
                 Log.e(TAG, error.toString());
+                Intent i = new Intent(applicationContext, LoginActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                applicationContext.startActivity(i);
+                activity.finish();
             }
         });
     }
 
-    public void logged(final String userName) {
+    public void logged(final String userName, String authorization) {
         RetrofitHandler retrofit = new RetrofitHandler(applicationContext, applicationContext.getResources().getString(R.string.register));
-        retrofit.getLoginRegisterAPI().logged(new Callback<ModelUsers>() {
+        retrofit.getLoginRegisterAPI().logged(authorization, new Callback<ModelUsers>() {
             @Override
             public void success(ModelUsers modelUsers, Response response) {
                 Log.d(TAG, modelUsers.toString());

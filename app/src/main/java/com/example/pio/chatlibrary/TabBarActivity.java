@@ -84,8 +84,9 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         fragmentB = new FragmentB();
         fragmentC = new FragmentC();
 
+        String authorization = "Token token=" + TOKEN;
         Retrofit retrofit = new Retrofit(getApplicationContext(), this);
-        retrofit.logged(LOGIN);
+        retrofit.logged(LOGIN, authorization);
 
     }
 
@@ -245,9 +246,12 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     @Override
     public void onBackPressed() {
 
-        Intent i = new Intent(this, LoginActivity.class);
+        Retrofit retrofit = new Retrofit(getApplicationContext(), this);
+        String authorization = "Token token=" + TOKEN;
+        retrofit.sign_out(authorization);
+/*        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
-        finish();
+        finish();*/
     }
 
 
