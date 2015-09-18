@@ -50,10 +50,6 @@ public class FragmentC extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_c, container, false);
 
-        usersList.add(new User("malkom",true));
-        usersList.add(new User("klapek",true));
-        usersList.add(new User("motowidły",true));
-
         usersListView = (ListView) view.findViewById(R.id.list_view_users);
         usersListView.setAdapter(myAdapter);
 

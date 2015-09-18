@@ -13,6 +13,7 @@ public class Message implements Parcelable {
     private boolean wrong;
 
     public Message() {
+
     }
 
     public Message(String fromName, String message, boolean isSelf, boolean wrong) {
@@ -21,6 +22,18 @@ public class Message implements Parcelable {
         this.isSelf = isSelf;
         this.wrong = wrong;
     }
+
+    public static final Creator<Message> CREATOR = new Creator<Message>() {
+        @Override
+        public Message createFromParcel(Parcel in) {
+            return new Message(in);
+        }
+
+        @Override
+        public Message[] newArray(int size) {
+            return new Message[size];
+        }
+    };
 
     public String getFromName() {
         return fromName;

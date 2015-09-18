@@ -48,9 +48,9 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setAnimation(animationLeft);
 
         loginEditText = (EditText) findViewById(R.id.editTextUserName);
-        loginEditText.setText("czesiek123");
+        loginEditText.setText("kopara");
         passwordEditText = (EditText) findViewById(R.id.editTextUserPassword);
-        passwordEditText.setText("Zaq!12wsx");
+        passwordEditText.setText("Dupek123!");
 
     }
 
