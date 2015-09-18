@@ -113,10 +113,10 @@ public class Retrofit {
 
     public void sign_out(String authorization) {
         RetrofitHandler retrofit = new RetrofitHandler(applicationContext, applicationContext.getResources().getString(R.string.register));
-        retrofit.getLoginRegisterAPI().sign_out(authorization, new Callback<String>() {
+        retrofit.getLoginRegisterAPI().sign_out(authorization, new Callback<ModelSignOut>() {
             @Override
-            public void success(String s, Response response) {
-                Log.d(TAG, String.valueOf(response.getStatus()));
+            public void success(ModelSignOut s, Response response) {
+                Log.d(TAG, s.getStatus());
             }
 
             @Override

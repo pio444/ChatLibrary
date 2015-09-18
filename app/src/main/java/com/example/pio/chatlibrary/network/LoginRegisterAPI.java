@@ -14,8 +14,8 @@ import retrofit.http.Query;
  */
 public interface LoginRegisterAPI {
 
-    //static final String BASE_URL = "http://172.16.20.179:3000/api/v1/accounts";
-    static final String BASE_URL = "http://172.16.20.137:3000/api/v1/accounts";
+    static final String BASE_URL = "http://172.16.20.179:3000/api/v1/accounts";
+    //static final String BASE_URL = "http://172.16.20.137:3000/api/v1/accounts";
 
     @POST("/sign_up")
     void sign_up(@Body ModelRegister modelRegister, Callback<ModelRegister> callback);
@@ -24,7 +24,7 @@ public interface LoginRegisterAPI {
     void loginToChat(@Query("user") String userName, @Query("password")String userPassword , Callback<String> callback);
 
     @DELETE("/sign_out")
-    void sign_out(@Header("Authorization") String authorization, Callback<String> callback);
+    void sign_out(@Header("Authorization") String authorization, Callback<ModelSignOut> callback);
 
     @GET("/logged")
     void logged(Callback<ModelUsers> callback);

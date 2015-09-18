@@ -22,6 +22,18 @@ public class Message implements Parcelable {
         this.wrong = wrong;
     }
 
+    public static final Creator<Message> CREATOR = new Creator<Message>() {
+        @Override
+        public Message createFromParcel(Parcel in) {
+            return new Message(in);
+        }
+
+        @Override
+        public Message[] newArray(int size) {
+            return new Message[size];
+        }
+    };
+
     public String getFromName() {
         return fromName;
     }

@@ -62,10 +62,8 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-//        TOKEN = intent.getStringExtra("TOKEN");
-//        Log.d(TAG, TOKEN);
-//        TOKEN = TOKEN.replaceAll("\"", "");
-//        Log.d(TAG, TOKEN);
+        TOKEN = intent.getStringExtra("TOKEN");
+        Log.d(TAG, TOKEN);
         LOGIN = intent.getStringExtra("LOGIN");
         setContentView(R.layout.activity_tabviews);
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -233,7 +231,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sign_out) {
             Retrofit retrofit = new Retrofit(getApplicationContext(), this);
-            String authorization = "Basic " + TOKEN;
+            String authorization = "Token token=" + TOKEN;
             retrofit.sign_out(authorization);
             //String authorization = "Basic ";
                     //Log.e(TAG, String.valueOf(response.getStatus()));
