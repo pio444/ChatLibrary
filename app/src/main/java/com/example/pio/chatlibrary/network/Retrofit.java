@@ -9,13 +9,19 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.pio.chatlibrary.MyApplication;
 import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.TabBarActivity;
+import com.example.pio.chatlibrary.chat.User;
+import com.example.pio.chatlibrary.fragments.FragmentC;
 import com.example.pio.chatlibrary.login.LoginActivity;
 import com.example.pio.chatlibrary.login.RegisterActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -111,6 +117,27 @@ public class Retrofit {
             @Override
             public void success(String s, Response response) {
                 Log.d(TAG, String.valueOf(response.getStatus()));
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Log.e(TAG, error.toString());
+            }
+        });
+    }
+
+    public void logged(final FragmentC fragment) {
+        RetrofitHandler retrofit = new RetrofitHandler(applicationContext, applicationContext.getResources().getString(R.string.register));
+        retrofit.getLoginRegisterAPI().logged(new Callback<ModelUsers>() {
+            @Override
+            public void success(ModelUsers modelUsers, Response response) {
+                Log.d(TAG, modelUsers.toString());
+                MyApplication application = (MyApplication) applicationContext;
+                List<User> list = new ArrayList<User>();
+                for (int i = 0; i < modelUsers.getUsers().size(); i++) {
+                    list.add(new User(modelUsers.getUsers().get(i), true));
+                }
+
             }
 
             @Override
