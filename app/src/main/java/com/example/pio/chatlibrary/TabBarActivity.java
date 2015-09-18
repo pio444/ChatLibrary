@@ -86,6 +86,9 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         fragmentB = new FragmentB();
         fragmentC = new FragmentC();
 
+        Retrofit retrofit = new Retrofit(getApplicationContext(), this);
+        retrofit.logged(fragmentC);
+
     }
 
     @Override
