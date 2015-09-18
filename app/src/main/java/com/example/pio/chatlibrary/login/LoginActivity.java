@@ -15,6 +15,7 @@ import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.TabBarActivity;
 import com.example.pio.chatlibrary.network.Retrofit;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
+import com.example.pio.chatlibrary.util.Network;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -65,8 +66,13 @@ public class LoginActivity extends AppCompatActivity {
         Validation validation = new Validation(loginEditText.getText().toString(), passwordEditText.getText().toString());
         String message = validation.validationLogin();
         if (message.equals("true")) {
-            Retrofit retrofit = new Retrofit(getApplicationContext(), this);
-            retrofit.sign_in(loginEditText.getText().toString(), passwordEditText.getText().toString());
+            if (Network.isNetworkAvailable(this)) {
+                Retrofit retrofit = new Retrofit(getApplicationContext(), this);
+                retrofit.sign_in(loginEditText.getText().toString(), passwordEditText.getText().toString());
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"There is no internect connection", Toast.LENGTH_SHORT).show();
+            }
         }
         else {
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();

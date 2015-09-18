@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.example.pio.chatlibrary.fragments.FragmentA;
 import com.example.pio.chatlibrary.fragments.FragmentB;
@@ -27,6 +28,7 @@ import com.example.pio.chatlibrary.network.ActivityListener;
 import com.example.pio.chatlibrary.network.FayeClient;
 import com.example.pio.chatlibrary.network.Retrofit;
 import com.example.pio.chatlibrary.network.RetrofitHandler;
+import com.example.pio.chatlibrary.util.Network;
 
 import org.json.JSONException;
 
@@ -75,10 +77,12 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         handlerThread.start();
         Handler mHandler = new Handler(handlerThread.getLooper(), this);
         mUiHandler = new Handler(getMainLooper(), this);
-        fayeClient = new FayeClient("/all", mHandler);
-        fayeClient.start();
-        fayeClient2 = new FayeClient("/users", mHandler);
-        fayeClient2.start();
+        if (Network.isNetworkAvailable(this)) {
+            fayeClient = new FayeClient("/all", mHandler);
+            fayeClient.start();
+            fayeClient2 = new FayeClient("/users", mHandler);
+            fayeClient2.start();
+        }
 
         fragmentA = new FragmentA();
         fragmentB = new FragmentB();
@@ -231,9 +235,14 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sign_out) {
-            Retrofit retrofit = new Retrofit(getApplicationContext(), this);
-            String authorization = "Token token=" + TOKEN;
-            retrofit.sign_out(authorization);
+            if (Network.isNetworkAvailable(this)) {
+                Retrofit retrofit = new Retrofit(getApplicationContext(), this);
+                String authorization = "Token token=" + TOKEN;
+                retrofit.sign_out(authorization);
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"There is no internect connection", Toast.LENGTH_SHORT).show();
+            }
             //String authorization = "Basic ";
                     //Log.e(TAG, String.valueOf(response.getStatus()));
                     //Log.e(TAG, error.toString());
@@ -246,9 +255,15 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     @Override
     public void onBackPressed() {
 
-        Retrofit retrofit = new Retrofit(getApplicationContext(), this);
-        String authorization = "Token token=" + TOKEN;
-        retrofit.sign_out(authorization);
+
+        if (Network.isNetworkAvailable(this)) {
+            Retrofit retrofit = new Retrofit(getApplicationContext(), this);
+            String authorization = "Token token=" + TOKEN;
+            retrofit.sign_out(authorization);
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "There is no internect connection", Toast.LENGTH_SHORT).show();
+        }
 /*        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();*/

@@ -17,6 +17,7 @@ import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.fragments.DataOfBirthdayDialog;
 import com.example.pio.chatlibrary.network.ModelRegister;
 import com.example.pio.chatlibrary.network.Retrofit;
+import com.example.pio.chatlibrary.util.Network;
 
 /**
  * Created by pio on 09.09.15.
@@ -107,8 +108,13 @@ public class RegisterActivity extends AppCompatActivity
         String message = validation.validationRegister();
         if (message.equals("true")) {
             ModelRegister model =  validation.creatModelRegister();
-            Retrofit retrofit = new Retrofit(getApplicationContext(), this);
-            retrofit.sign_up(model, mHandler);
+            if (Network.isNetworkAvailable(this)) {
+                Retrofit retrofit = new Retrofit(getApplicationContext(), this);
+                retrofit.sign_up(model, mHandler);
+            }
+            else {
+                Toast.makeText(getApplicationContext(),"There is no internect connection", Toast.LENGTH_SHORT).show();
+            }
         }
         else {
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
