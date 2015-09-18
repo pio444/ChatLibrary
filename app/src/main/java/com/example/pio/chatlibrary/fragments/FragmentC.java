@@ -37,9 +37,6 @@ public class FragmentC extends Fragment {
 
     public FragmentC() {
 
-
-
-
     }
 
     @Override
