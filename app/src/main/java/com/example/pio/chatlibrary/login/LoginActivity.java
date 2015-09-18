@@ -48,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         buttonLogin.setAnimation(animationLeft);
 
         loginEditText = (EditText) findViewById(R.id.editTextUserName);
-        loginEditText.setText("normalny");
+        loginEditText.setText("kopara");
         passwordEditText = (EditText) findViewById(R.id.editTextUserPassword);
         passwordEditText.setText("Dupek123!");
 
@@ -71,8 +71,6 @@ public class LoginActivity extends AppCompatActivity {
         else {
             Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
         }
-
-                          
     }
     @Override
     public void onBackPressed() {

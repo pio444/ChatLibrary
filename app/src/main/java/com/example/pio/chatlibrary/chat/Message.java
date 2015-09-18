@@ -13,6 +13,7 @@ public class Message implements Parcelable {
     private boolean wrong;
 
     public Message() {
+
     }
 
     public Message(String fromName, String message, boolean isSelf, boolean wrong) {

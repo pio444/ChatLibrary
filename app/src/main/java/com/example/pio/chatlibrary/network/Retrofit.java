@@ -126,17 +126,19 @@ public class Retrofit {
         });
     }
 
-    public void logged(final FragmentC fragment) {
+    public void logged(final String userName) {
         RetrofitHandler retrofit = new RetrofitHandler(applicationContext, applicationContext.getResources().getString(R.string.register));
         retrofit.getLoginRegisterAPI().logged(new Callback<ModelUsers>() {
             @Override
             public void success(ModelUsers modelUsers, Response response) {
                 Log.d(TAG, modelUsers.toString());
                 MyApplication application = (MyApplication) applicationContext;
-                List<User> list = new ArrayList<User>();
+                List<User>  userList = application.getUsersList();
+
                 for (int i = 0; i < modelUsers.getUsers().size(); i++) {
-                    list.add(new User(modelUsers.getUsers().get(i), true));
+                    userList.add(new User(modelUsers.getUsers().get(i),true));
                 }
+                userList.remove(userName);
 
             }
 
