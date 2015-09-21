@@ -81,6 +81,18 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
             handler.sendMessage(message);
         } catch (JSONException e) {
             e.printStackTrace();
+            try {
+                String user = json.getString("user");
+                Boolean activity = Boolean.parseBoolean(json.getString("activity"));
+                Message message = handler.obtainMessage(TabBarActivity.USER_OPERATION);
+                Bundle bundle = new Bundle();
+                bundle.putString("user", user);
+                bundle.putBoolean("activity", activity);
+                message.setData(bundle);
+                handler.sendMessage(message);
+            } catch (JSONException e1) {
+                e1.printStackTrace();
+            }
         }
     }
 

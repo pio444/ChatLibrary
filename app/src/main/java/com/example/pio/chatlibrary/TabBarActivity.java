@@ -55,6 +55,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     private FayeClient fayeClient2;
     private static String LOGIN;
     public static final int BACKGROUND_OPERATION = 10;
+    public static final int USER_OPERATION = 20;
     private FragmentA fragmentA;
     private FragmentB fragmentB;
     private FragmentC fragmentC;
@@ -137,10 +138,21 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
             case BACKGROUND_OPERATION: {
                 Bundle bundle = msg.getData();
                 newMessage(bundle.getString("login"), bundle.getString("message"));
+                break;
+            }
+            case USER_OPERATION: {
+                Bundle bundle = msg.getData();
+                user_sign_in_out(bundle.getString("user"), bundle.getBoolean("activity"));
+                break;
             }
         }
 
         return true;
+    }
+
+    private void user_sign_in_out(String user, boolean activity) {
+        Log.d(TAG+"/user_sign_in_out", user);
+        Log.d(TAG+"/user_sign_in_out", String.valueOf(activity));
     }
 
     private void newMessage(final String login, final String message) {
@@ -162,6 +174,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     @Override
     public void send(String message) throws JSONException {
         fayeClient.send(LOGIN, message);
+        //fayeClient2.send("kanal", "/users");
         fragmentA.addMessage("Ja", message, true);
     }
 
