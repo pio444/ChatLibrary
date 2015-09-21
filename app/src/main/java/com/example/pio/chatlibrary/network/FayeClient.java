@@ -90,4 +90,10 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
         jsonObject.put("message", message);
         mClient.sendMessage(jsonObject);
     }
+
+    public void unsubscribe() {
+        mClient.unsubscribe();
+        mClient.closeWebSocketConnection();
+    }
+
 }
