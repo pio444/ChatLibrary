@@ -144,9 +144,9 @@ public class Retrofit {
                 List<User>  userList = application.getUsersList();
 
                 for (int i = 0; i < modelUsers.getUsers().size(); i++) {
-                    userList.add(new User(modelUsers.getUsers().get(i),true));
+                    if (!modelUsers.getUsers().get(i).equals(userName))
+                        userList.add(new User(modelUsers.getUsers().get(i),true));
                 }
-                userList.remove(userName);
 
             }
 

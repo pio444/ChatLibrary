@@ -19,8 +19,8 @@ import java.net.URISyntaxException;
 public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListener {
 
     public static final String TAG = FayeClient.class.getSimpleName();
-    //private final String URI = "http://172.16.20.179:9290/faye";
-    private final String URI = "http://172.16.20.137:9290/faye";
+    private final String URI = "http://172.16.20.179:9290/faye";
+    //private final String URI = "http://172.16.20.137:9290/faye";
     private String CHANNEL;
     private Handler handler;
     private com.saulpower.fayeclient.FayeClient mClient;
