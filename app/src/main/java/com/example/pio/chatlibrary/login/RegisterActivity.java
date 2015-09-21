@@ -144,17 +144,29 @@ public class RegisterActivity extends AppCompatActivity
         correspondance.setChecked(true);
 
         login = (EditText) findViewById(R.id.register_Name);
+        login.setText("kopara");
         password = (EditText) findViewById(R.id.register_Password);
+        password.setText("Kopara123!");
         confirmPassword = (EditText) findViewById(R.id.register_Confirm_Password);
+        confirmPassword.setText("Kopara123!");
         e_mail = (EditText) findViewById(R.id.register_e_mail);
+        e_mail.setText("dupa@op.pl");
         first_name = (EditText) findViewById(R.id.register_FirstName);
+        first_name.setText("Kooo");
         last_name = (EditText) findViewById(R.id.register_LastName);
+        last_name.setText("Koooooodada");
         pesel = (EditText) findViewById(R.id.register_Pesel);
+        pesel.setText("90090909999");
         city = (EditText) findViewById(R.id.register_City);
+        city.setText("Kosowo");
         postal_code = (EditText) findViewById(R.id.register_Postal_Code);
+        postal_code.setText("58-111");
         street = (EditText) findViewById(R.id.register_Street);
+        street.setText("goczowa");
         postal_city = (EditText) findViewById(R.id.register_Postal_City);
+        postal_city.setText("Kodw");
         home_number = (EditText) findViewById(R.id.register_Home_Number);
+        home_number.setText("1");
 
     }
 

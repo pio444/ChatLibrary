@@ -47,6 +47,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
     public static final String TAG = TabBarActivity.class.getSimpleName();
 
+    private MyApplication myApplication ;
     private ActionBar actionBar;
     private ViewPager viewPager;
     private static String TOKEN;
@@ -63,6 +64,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        myApplication = (MyApplication)getApplicationContext();
         Intent intent = getIntent();
         TOKEN = intent.getStringExtra("TOKEN");
         Log.d(TAG, TOKEN);
@@ -235,6 +237,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sign_out) {
+            myApplication.getUsersList().clear();
             fayeClient.unsubscribe();
             fayeClient2.unsubscribe();
             if (Network.isNetworkAvailable(this)) {
@@ -260,12 +263,16 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     @Override
     public void onBackPressed() {
 
+        myApplication.getUsersList().clear();
         fayeClient.unsubscribe();
         fayeClient2.unsubscribe();
+
         if (Network.isNetworkAvailable(this)) {
             Retrofit retrofit = new Retrofit(getApplicationContext(), this);
             String authorization = "Token token=" + TOKEN;
             retrofit.sign_out(authorization);
+
+
         }
         else {
             //Toast.makeText(getApplicationContext(), "There is no internect connection", Toast.LENGTH_SHORT).show();

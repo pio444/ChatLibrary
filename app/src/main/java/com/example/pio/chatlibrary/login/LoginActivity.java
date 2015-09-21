@@ -51,7 +51,7 @@ public class LoginActivity extends AppCompatActivity {
         loginEditText = (EditText) findViewById(R.id.editTextUserName);
         loginEditText.setText("kopara");
         passwordEditText = (EditText) findViewById(R.id.editTextUserPassword);
-        passwordEditText.setText("Dupek123!");
+        passwordEditText.setText("Kopara123!");
 
     }
 

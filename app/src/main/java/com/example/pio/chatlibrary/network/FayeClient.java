@@ -94,6 +94,7 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
     public void unsubscribe() {
         mClient.unsubscribe();
         mClient.closeWebSocketConnection();
+
     }
 
 }
