@@ -57,7 +57,6 @@ public class FragmentC extends Fragment {
     }
 
 
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -101,10 +100,9 @@ public class FragmentC extends Fragment {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     int position = (Integer) buttonView.getTag();
-                    if (!isChecked){
+                    if (!isChecked) {
                         usersList.get(position).setOnPrivateChat(false);
-                    }
-                    else{
+                    } else {
                         usersList.get(position).setOnPrivateChat(true);
                     }
                     activityListener.notifyPrivateList();
@@ -115,5 +113,8 @@ public class FragmentC extends Fragment {
             return view;
 
         }
+    }
+    public void updateUsersList(){
+                usersListView.invalidateViews();
     }
 }

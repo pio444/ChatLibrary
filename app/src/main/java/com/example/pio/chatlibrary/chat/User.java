@@ -32,4 +32,12 @@ public class User {
     public String getUserName() {
         return userName;
     }
+
+    @Override
+    public boolean equals(Object object){
+        User other = (User)object;
+        if (this.userName.equals(other.getUserName()))
+            return true;
+        return false;
+    }
 }

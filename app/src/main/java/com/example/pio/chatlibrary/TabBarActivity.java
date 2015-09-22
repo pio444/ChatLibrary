@@ -17,8 +17,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Toast;
 
+import com.example.pio.chatlibrary.chat.User;
 import com.example.pio.chatlibrary.fragments.FragmentA;
 import com.example.pio.chatlibrary.fragments.FragmentB;
 import com.example.pio.chatlibrary.fragments.FragmentC;
@@ -27,14 +27,10 @@ import com.example.pio.chatlibrary.login.LoginActivity;
 import com.example.pio.chatlibrary.network.ActivityListener;
 import com.example.pio.chatlibrary.network.FayeClient;
 import com.example.pio.chatlibrary.network.Retrofit;
-import com.example.pio.chatlibrary.network.RetrofitHandler;
 import com.example.pio.chatlibrary.util.Network;
 
 import org.json.JSONException;
 
-import retrofit.Callback;
-import retrofit.RetrofitError;
-import retrofit.client.Response;
 
 /**
  * Created by pio on 09.09.15.
@@ -81,11 +77,13 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         Handler mHandler = new Handler(handlerThread.getLooper(), this);
         mUiHandler = new Handler(getMainLooper(), this);
         if (Network.isNetworkAvailable(this)) {
+
             fayeClient = new FayeClient("/all", mHandler);
             fayeClient.start();
             fayeClient2 = new FayeClient("/users", mHandler);
             fayeClient2.start();
         }
+
 
         fragmentA = new FragmentA();
         fragmentB = new FragmentB();
@@ -153,6 +151,19 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     private void user_sign_in_out(String user, boolean activity) {
         Log.d(TAG+"/user_sign_in_out", user);
         Log.d(TAG+"/user_sign_in_out", String.valueOf(activity));
+        if (activity)
+            myApplication.getUsersList().add(new User(user,true));
+        else
+            myApplication.getUsersList().remove(new User(user,false));
+        mUiHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                fragmentC.updateUsersList();
+            }
+        });
+        Log.d(TAG+"LIST SIZE IS", "" + myApplication.getUsersList().size());
+
+
     }
 
     private void newMessage(final String login, final String message) {
@@ -174,7 +185,6 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     @Override
     public void send(String message) throws JSONException {
         fayeClient.send(LOGIN, message);
-        //fayeClient2.send("kanal", "/users");
         fragmentA.addMessage("Ja", message, true);
     }
 

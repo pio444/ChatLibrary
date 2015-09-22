@@ -80,7 +80,7 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
             message.setData(bundle);
             handler.sendMessage(message);
         } catch (JSONException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             try {
                 String user = json.getString("user");
                 Boolean activity = Boolean.parseBoolean(json.getString("activity"));
@@ -91,7 +91,7 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
                 message.setData(bundle);
                 handler.sendMessage(message);
             } catch (JSONException e1) {
-                e1.printStackTrace();
+                //e1.printStackTrace();
             }
         }
     }
@@ -105,6 +105,7 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
 
     public void unsubscribe() {
         mClient.unsubscribe();
+        mClient.setFayeListener(null);
         mClient.closeWebSocketConnection();
 
     }
