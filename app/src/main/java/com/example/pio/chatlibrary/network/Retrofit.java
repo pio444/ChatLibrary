@@ -134,7 +134,7 @@ public class Retrofit {
         });
     }
 
-    public void logged(final String userName, String authorization) {
+    public void logged(final String userName, String authorization, final Handler handler) {
         RetrofitHandler retrofit = new RetrofitHandler(applicationContext, applicationContext.getResources().getString(R.string.register));
         retrofit.getLoginRegisterAPI().logged(authorization, new Callback<ModelUsers>() {
             @Override
@@ -147,6 +147,9 @@ public class Retrofit {
                     if (!modelUsers.getUsers().get(i).equals(userName))
                         userList.add(new User(modelUsers.getUsers().get(i),true));
                 }
+                Message message  = handler.obtainMessage(TabBarActivity.LOGGIN);
+                handler.sendMessage(message);
+
 
             }
 

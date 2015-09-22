@@ -53,6 +53,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     private static String LOGIN;
     public static final int BACKGROUND_OPERATION = 10;
     public static final int USER_OPERATION = 20;
+    public static final int LOGGIN =30;
     private FragmentA fragmentA;
     private FragmentB fragmentB;
     private FragmentC fragmentC;
@@ -86,7 +87,6 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
             fayeClient2.start();
         }
 
-
         fragmentA = new FragmentA();
         fragmentB = new FragmentB();
         fragmentC = new FragmentC();
@@ -94,7 +94,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         String authorization = "Token token=" + TOKEN;
         Retrofit retrofit = new Retrofit(getApplicationContext(), this);
-        retrofit.logged(LOGIN, authorization);
+        retrofit.logged(LOGIN, authorization,mHandler);
 
     }
 
@@ -145,6 +145,16 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
                 Bundle bundle = msg.getData();
                 user_sign_in_out(bundle.getString("user"), bundle.getBoolean("activity"));
                 break;
+            }
+            case LOGGIN:{
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        fragmentC.updateUsersList();
+                    }
+                });
+
+
             }
         }
 
