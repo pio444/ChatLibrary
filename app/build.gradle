@@ -18,6 +18,10 @@ android {
         }
     }
 }
+repositories {
+    maven { url 'http://clojars.org/repo' }
+}
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
@@ -25,5 +29,6 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.google.code.gson:gson:2.3'
     compile 'com.saulpower.fayeclient:library:1.0'
+    compile 'com.pusher:pusher-java-client:0.3.3'
 
 }

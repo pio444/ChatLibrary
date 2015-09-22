@@ -25,6 +25,7 @@ import com.example.pio.chatlibrary.fragments.FragmentC;
 import com.example.pio.chatlibrary.fragments.WrongDialog;
 import com.example.pio.chatlibrary.login.LoginActivity;
 import com.example.pio.chatlibrary.network.ActivityListener;
+import com.example.pio.chatlibrary.network.ChatPusher;
 import com.example.pio.chatlibrary.network.FayeClient;
 import com.example.pio.chatlibrary.network.Retrofit;
 import com.example.pio.chatlibrary.util.Network;
@@ -69,6 +70,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         setContentView(R.layout.activity_tabviews);
         viewPager = (ViewPager) findViewById(R.id.pager);
         viewPager.setAdapter(new MyAdapter(getSupportFragmentManager()));
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setOnPageChangeListener(new MyPageChangeListener());
         setUpTabs();
 
@@ -88,6 +90,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         fragmentA = new FragmentA();
         fragmentB = new FragmentB();
         fragmentC = new FragmentC();
+
 
         String authorization = "Token token=" + TOKEN;
         Retrofit retrofit = new Retrofit(getApplicationContext(), this);
