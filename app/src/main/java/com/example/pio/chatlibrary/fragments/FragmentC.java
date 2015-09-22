@@ -18,15 +18,12 @@ import com.example.pio.chatlibrary.R;
 import com.example.pio.chatlibrary.chat.User;
 import com.example.pio.chatlibrary.network.ActivityListener;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
  * Created by pio on 09.09.15.
  */
 public class FragmentC extends Fragment {
-
 
     private MyAdapter myAdapter;
     private ListView usersListView;

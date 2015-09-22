@@ -32,6 +32,9 @@ import com.example.pio.chatlibrary.util.Network;
 
 import org.json.JSONException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * Created by pio on 09.09.15.
@@ -40,7 +43,8 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
                                                         Handler.Callback,
                                                         FragmentA.SendMessage,
                                                         ActivityListener,
-                                                        WrongDialog.SendAgain {
+                                                        WrongDialog.SendAgain,
+                                                        FragmentB.PrivetListener {
 
     public static final String TAG = TabBarActivity.class.getSimpleName();
 
@@ -50,6 +54,8 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     private static String TOKEN;
     private FayeClient fayeClient;
     private FayeClient fayeClient2;
+    private FayeClient fayeClient3;
+    private List<FayeClient> fayeClientList;
     private static String LOGIN;
     public static final int BACKGROUND_OPERATION = 10;
     public static final int USER_OPERATION = 20;
@@ -58,6 +64,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
     private FragmentB fragmentB;
     private FragmentC fragmentC;
     private Handler mUiHandler;
+    private Handler mHandler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +84,16 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 
         HandlerThread handlerThread = new HandlerThread("BackgroundThread");
         handlerThread.start();
-        Handler mHandler = new Handler(handlerThread.getLooper(), this);
+        mHandler = new Handler(handlerThread.getLooper(), this);
         mUiHandler = new Handler(getMainLooper(), this);
         if (Network.isNetworkAvailable(this)) {
 
-            fayeClient = new FayeClient("/all", mHandler);
+            fayeClient = new FayeClient("/all", mHandler, TOKEN);
             fayeClient.start();
-            fayeClient2 = new FayeClient("/users", mHandler);
+            fayeClient2 = new FayeClient("/users", mHandler, TOKEN);
             fayeClient2.start();
+            fayeClient3 = new FayeClient("/"+LOGIN, mHandler, TOKEN);
+            fayeClient3.start();
         }
 
         fragmentA = new FragmentA();
@@ -95,6 +104,8 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         String authorization = "Token token=" + TOKEN;
         Retrofit retrofit = new Retrofit(getApplicationContext(), this);
         retrofit.logged(LOGIN, authorization,mHandler);
+
+        fayeClientList = new ArrayList<>();
 
     }
 
@@ -174,7 +185,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
                 fragmentC.updateUsersList();
             }
         });
-        Log.d(TAG+"LIST SIZE IS", "" + myApplication.getUsersList().size());
+        Log.d(TAG + "LIST SIZE IS", "" + myApplication.getUsersList().size());
 
 
     }
@@ -207,11 +218,41 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         fragmentB.updatePrivateList();
     }
 
+
     @Override
     public void sendAgain(int position, String message) throws JSONException {
         fayeClient.send(LOGIN, message);
         fragmentA.removeMessageFromList(position, message, LOGIN);
 
+    }
+
+    @Override
+    public void sendPrivetMessage(String user, String message) {
+        Log.d(TAG+"/sendMesagePrivet", user);
+        Log.d(TAG+"/sendMesagePrivet", message);
+        boolean send = false;
+        for (FayeClient f : fayeClientList) {
+            if (f.getNameChannel().equals(user)) {
+                send = true;
+                try {
+                    f.send(user, message);
+                    Log.d(TAG, "wyslano");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        }
+        if (send == false) {
+            FayeClient f = new FayeClient(user, mHandler, TOKEN);
+            f.start();
+            fayeClientList.add(f);
+            try {
+                f.send(user, message);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
