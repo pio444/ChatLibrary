@@ -29,6 +29,7 @@
     <string name="choose_person">Talk with: </string>
     <string name="action_sign_out">Sign out</string>
     <string name="regiser_dataOfBirthday">Data Of Birthday</string>
+    <string name="no_selected_user">No selected user</string>
     <string-array name="copyDialog">
         <item>Copy text</item>
     </string-array>

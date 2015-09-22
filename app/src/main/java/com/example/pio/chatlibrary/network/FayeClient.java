@@ -24,10 +24,14 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
     private String CHANNEL;
     private Handler handler;
     private com.saulpower.fayeclient.FayeClient mClient;
+    private String TOKEN;
+    private String user;
 
-    public FayeClient(String CHANNEL, Handler handler) {
+    public FayeClient(String CHANNEL, Handler handler, String TOKEN, String user) {
         this.CHANNEL = CHANNEL;
         this.handler = handler;
+        this.TOKEN = TOKEN;
+        this.user = user;
     }
 
     public void start() {
@@ -39,6 +43,12 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
             e.printStackTrace();
         }
         JSONObject ext = new JSONObject();
+        try {
+            ext.put("authToken", TOKEN);
+            ext.put("user", TOKEN);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         mClient.setFayeListener(this);
         mClient.connectToServer(ext);
 
@@ -67,7 +77,7 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
 
     @Override
     public void messageReceived(JSONObject json) {
-        Log.i(TAG, String.format("Received message %s", json.toString()));
+        Log.i(TAG, String.format("Received message kanal: %s %s", CHANNEL, json.toString()));
         try {
             String author = json.getString("author");//.replaceAll("\"", "");
             String wiadomosc = json.getString("message");//.replaceAll("\"", "");
@@ -98,7 +108,7 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
 
     public void send(String author, String message) throws JSONException {
         JSONObject jsonObject = new JSONObject();
-        jsonObject.put("author", author);
+        //jsonObject.put("author", author);
         jsonObject.put("message", message);
         mClient.sendMessage(jsonObject);
     }
@@ -108,6 +118,10 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
         mClient.setFayeListener(null);
         mClient.closeWebSocketConnection();
 
+    }
+
+    public String getNameChannel() {
+        return CHANNEL;
     }
 
 }
