@@ -30,6 +30,7 @@
     <string name="action_sign_out">Sign out</string>
     <string name="regiser_dataOfBirthday">Data Of Birthday</string>
     <string name="no_selected_user">No selected user</string>
+    <string name="choose_users">Choose users :</string>
     <string-array name="copyDialog">
         <item>Copy text</item>
     </string-array>

@@ -88,11 +88,11 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         mUiHandler = new Handler(getMainLooper(), this);
         if (Network.isNetworkAvailable(this)) {
 
-            fayeClient = new FayeClient("/all", mHandler, TOKEN);
+            fayeClient = new FayeClient("/all", mHandler, TOKEN,LOGIN);
             fayeClient.start();
-            fayeClient2 = new FayeClient("/users", mHandler, TOKEN);
+            fayeClient2 = new FayeClient("/users", mHandler, TOKEN,LOGIN);
             fayeClient2.start();
-            fayeClient3 = new FayeClient("/"+LOGIN, mHandler, TOKEN);
+            fayeClient3 = new FayeClient("/"+LOGIN, mHandler, TOKEN,LOGIN);
             fayeClient3.start();
         }
 
@@ -232,10 +232,10 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         Log.d(TAG+"/sendMesagePrivet", message);
         boolean send = false;
         for (FayeClient f : fayeClientList) {
-            if (f.getNameChannel().equals(user)) {
+            if (f.getNameChannel().equals("/" + user)) {
                 send = true;
                 try {
-                    f.send(user, message);
+                    f.send(LOGIN, message);
                     Log.d(TAG, "wyslano");
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -244,7 +244,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
             }
         }
         if (send == false) {
-            FayeClient f = new FayeClient(user, mHandler, TOKEN);
+            FayeClient f = new FayeClient("/" + user, mHandler, TOKEN,LOGIN);
             f.start();
             fayeClientList.add(f);
             try {

@@ -45,7 +45,7 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
         JSONObject ext = new JSONObject();
         try {
             ext.put("authToken", TOKEN);
-            ext.put("user", TOKEN);
+            ext.put("user", user);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -68,6 +68,8 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
     @Override
     public void subscribedToChannel(String subscription) {
         Log.i(TAG, String.format("Subscribed to channel %s on Faye", subscription));
+
+
     }
 
     @Override
@@ -107,10 +109,15 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
     }
 
     public void send(String author, String message) throws JSONException {
-        JSONObject jsonObject = new JSONObject();
-        //jsonObject.put("author", author);
-        jsonObject.put("message", message);
-        mClient.sendMessage(jsonObject);
+
+
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("author", author);
+            jsonObject.put("message", message);
+            mClient.sendMessage(jsonObject);
+
+
+
     }
 
     public void unsubscribe() {
