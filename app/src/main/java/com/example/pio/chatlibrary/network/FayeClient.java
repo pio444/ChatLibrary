@@ -26,12 +26,15 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
     private com.saulpower.fayeclient.FayeClient mClient;
     private String TOKEN;
     private String user;
+    private boolean listener;
+    private String message;
 
     public FayeClient(String CHANNEL, Handler handler, String TOKEN, String user) {
         this.CHANNEL = CHANNEL;
         this.handler = handler;
         this.TOKEN = TOKEN;
         this.user = user;
+        this.listener = false;
     }
 
     public void start() {
@@ -68,6 +71,14 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
     @Override
     public void subscribedToChannel(String subscription) {
         Log.i(TAG, String.format("Subscribed to channel %s on Faye", subscription));
+        if (listener) {
+            try {
+                send(user, message);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        listener = false;
 
 
     }
@@ -131,4 +142,9 @@ public class FayeClient implements com.saulpower.fayeclient.FayeClient.FayeListe
         return CHANNEL;
     }
 
+    public void run(String message) {
+        this.message = message;
+        this.listener = true;
+        start();
+    }
 }

@@ -245,13 +245,8 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         }
         if (send == false) {
             FayeClient f = new FayeClient("/" + user, mHandler, TOKEN,LOGIN);
-            f.start();
             fayeClientList.add(f);
-            try {
-                f.send(user, message);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+            f.run(message);
         }
     }
 
@@ -360,6 +355,13 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
 /*        Intent i = new Intent(this, LoginActivity.class);
         startActivity(i);
         finish();*/
+    }
+
+    private void clearListFaye() {
+        for (FayeClient f : fayeClientList) {
+            f.unsubscribe();
+        }
+        fayeClientList.clear();
     }
 
 
