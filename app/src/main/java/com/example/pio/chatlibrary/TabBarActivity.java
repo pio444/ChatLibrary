@@ -312,6 +312,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
             myApplication.getUsersList().clear();
             fayeClient.unsubscribe();
             fayeClient2.unsubscribe();
+            clearListFaye();
             if (Network.isNetworkAvailable(this)) {
                 Retrofit retrofit = new Retrofit(getApplicationContext(), this);
                 String authorization = "Token token=" + TOKEN;
@@ -338,6 +339,7 @@ public class TabBarActivity extends FragmentActivity implements ActionBar.TabLis
         myApplication.getUsersList().clear();
         fayeClient.unsubscribe();
         fayeClient2.unsubscribe();
+        clearListFaye();
 
         if (Network.isNetworkAvailable(this)) {
             Retrofit retrofit = new Retrofit(getApplicationContext(), this);
